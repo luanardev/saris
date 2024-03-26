@@ -1,0 +1,115 @@
+{% extends 'saris_registration/base.html' %}
+{% load humanize %}
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Register Student</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4>Registration Invoice</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table">
+                            <tr>
+                                <th>Student Number
+                                <th>
+                                <td>{{register.enrollment.student.student_number}}
+                                <td>
+                            </tr>
+                            <tr>
+                                <th>Student Name
+                                <th>
+                                <td>{{register.enrollment.student}}
+                                <td>
+                            </tr>
+                            <tr>
+                                <th>Program of Study
+                                <th>
+                                <td>{{register.enrollment.program}}
+                                <td>
+                            </tr>
+                            <tr>
+                                <th>Semester of Study
+                                <th>
+                                <td>Semester {{register.enrollment.semester}}
+                                <td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped ">
+                                <thead class="bg-light-secondary">
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Amount</th>
+                                        <th>Issued On</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{invoice_manager.preview.service}}</td>
+                                        <td>{{invoice_manager.preview.invoice_amount|intcomma}}</td>
+                                        <td>{{invoice_manager.preview.invoice_date}}</td>
+                                    </tr>
+                                    {% for invoice in invoice_manager.get_outstanding_invoices %}
+                                    <tr>
+                                        <td>{{invoice.service}}</td>
+                                        <td>{{invoice.invoice_amount|intcomma}}</td>
+                                        <td>{{invoice.invoice_date}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="table-responsive">
+                            <table class="table table-borderless ">
+                                <tbody>
+                                    <tr>
+                                        <th>Total Amount</th>
+                                        <td>{{invoice_manager.get_total_amount|intcomma}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Installment({{invoice_manager.get_installment_percent }} %)</th>
+                                        <td>{{invoice_manager.get_installment|intcomma}}</td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                           
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <form action="{% url 'registration:checkout' %}" method="post" class="form">
+                    {% csrf_token %}
+                    <div class="float-end">
+                        <button type="submit" class="btn btn-success">Proceed</button>
+                        <a href="{% url 'registration:register' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

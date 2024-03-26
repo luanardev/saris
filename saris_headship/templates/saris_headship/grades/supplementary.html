@@ -1,0 +1,97 @@
+{% extends 'saris_headship/base.html' %}
+{% load render_table from django_tables2 %}
+{% load export_url from django_tables2 %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% load humanize %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-lg-12 col-md-6">
+                <h3>
+                    <i class="fa fa-book"></i> Supplementary Grades
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+
+    <section class="section mb-4">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'headship:home'%}">
+                    <i class="fa fa-arrow-left"></i> Go Back
+                </a>
+            </li>
+        </ul>
+    </section>
+   
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fa fa-edit"></i> Grades Entrance</h4>
+                <p>You can enter grades in cells under EOS GRADE column. The system will automatically save the grades entered when you MOVE OUT of the cell.</p>
+                <h6 class="text-muted fs-5">Notice: </h6>
+                <ul>
+                    <li>End of Semester Grade (EOS GRADE) <strong>MUST</strong> be marked out of <strong>{{manager.grade_bench_mark.endsemester_grade}}%</strong>.</li>
+                    <li>The system <strong>WILL NOT</strong> accept grades that exceed the defined Benchmark.</li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered tabble-condensed table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>STUDENT</th>
+                                        <th>PROGRAM</th>
+                                        <th>COURSE</th>
+                                        <th>CAS GRADE</th>
+                                        <th>EOS GRADE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for studentcourse in manager.get_grades %}
+                                    <tr>
+                                        <td>{{studentcourse.enrollment.student.student_number}}</td>
+                                        <td>{{studentcourse.enrollment.student}}</td>  
+                                        <td>{{studentcourse.enrollment.program.code}}</td>  
+                                        <td>{{studentcourse.course}}</td>   
+                                        <td class="editable-ca" data-id="{{studentcourse.pk}}" data-eos="{{studentcourse.endsemester_grade}}">
+                                            {{studentcourse.continous_grade}}
+                                        </td> 
+                                        <td class="editable-eos" contenteditable="true" data-id="{{studentcourse.pk}}" data-ca="{{studentcourse.continous_grade}}">
+                                            {% if studentcourse.endsemester_grade %}
+                                                {{studentcourse.endsemester_grade}}
+                                            {% endif %}
+                                        </td> 
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <form id="gradeform" method="post" action="{% url 'headship:supplementary.submit' %}">
+                                {% csrf_token %}
+                            </form>
+                            <div id="error"></div>
+                        </div>
+                    </div>
+                </div>      
+            </div>   
+        </div> 
+    </section>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'assets/js/gradeentry.js' %}"></script>
+{% endblock %}

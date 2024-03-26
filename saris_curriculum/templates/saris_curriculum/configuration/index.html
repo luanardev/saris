@@ -1,0 +1,82 @@
+{% extends 'saris_curriculum/base.html' %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Manage Curriculum</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <section class="section">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <a href="{% url 'curriculum:configuration.create' %}" >
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Configure Curriculum</h5>
+                                    <p class="card-text">Configure academic semester curriculum</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'curriculum:configuration.browse' %}" >
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-folder-open"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Browse Curriculum</h5>
+                                    <p class="card-text">Browse configured curriculums</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'curriculum:curriculum.import' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-file-import"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Import Curriculum</h5>
+                                    <p class="card-text">Import master curriculum</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> 
+        </div>
+    </section>
+</div>
+
+
+{% endblock %}

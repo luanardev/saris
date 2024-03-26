@@ -1,0 +1,238 @@
+{% load static %}
+{% load saris_tags user_tags %}
+{% load saris_institution_tags %}
+{% load qr_code %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Identity Card</title>
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+        <style>
+            
+            body{
+                font-family: Arial;
+                font-size: 9px;
+                background-color: white;
+                color: black;
+            }
+
+            .page-break{
+                page-break-after: always;
+            }
+
+            table{
+                font-size:8px;
+            }
+
+            table th{
+                text-align:right;
+                color: #004F98;
+                font-size:8px;
+                font-weight: normal;
+            }
+
+            table td{
+                text-align:left;
+                padding-left:8.5px;
+                font-weight: bold;
+            }
+
+            #header{
+                height: 25px;
+                background-color:#138808;
+                color:#FFFFFF;
+            }
+
+            #header p{
+                font-size:8.5px;
+                font-family:Helvetica;
+                text-transform: uppercase;
+                font-weight:bold;
+                text-align:center;
+                position:relative;
+                top:8px;
+                
+            }
+
+            #address{
+                position:relative;
+                top:2px;
+                text-align:center;
+                line-height:10px;
+                font-size:9px;
+            }
+
+            #body{
+                position:relative;
+                font-size:10px;
+                line-height:9px;
+                height: 88px;
+            }
+
+            #content{
+                margin-left:90px;
+            }
+
+            #label{
+                height:16px;
+                width: 120px;
+                background-color:#138808;
+                border-collapse: 1px solid;
+                border-radius: 8px;
+                color:#FFFFFF;
+            }
+
+            #label p{
+                text-align:center;
+                text-transform:uppercase;
+                font-weight:bold;
+                padding-top: 3.5px;
+            }
+
+            #passport-photo{
+                width:80px;
+            }
+            
+            #body, #backside{
+                margin:0.1in;
+            }
+
+            #backside{
+                line-height: 10px;
+            }
+
+            #footer{
+                margin:0.1in;
+            }
+           
+            @page{
+                margin: 0in;
+            }
+
+            @media print {
+                @page{
+                    size: 3.370in 2.125in;
+                }
+            }
+
+        </style>
+       
+    </head>
+
+    <body>       
+        <div class="container-fluid ">
+
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="header">
+                            <p>{% org_name %}</p>
+                        </div>
+
+                        <div id="address">
+                            <address>
+                            {% org_postal_address %},
+                            {% org_city %}, {% org_country %}<br/>
+                            Tel: {% org_telephone_one %},
+                            Email: {% org_email_address %}
+                            </address>
+                        </div>
+
+                        <div id="body">
+                            
+                            <div class="position-relative" >
+                                
+                                <div class="position-absolute start-0 ">
+                                    <img src="{% org_logo %}" alt="logo" style="width:70px;"/>
+                                </div>
+                                <div class="position-absolute end-0">
+                                    
+                                    <img id="passport-photo" src="{% passport_photo card.student.user %}" alt="logo"/> 
+                                </div>
+
+                                <div id="content" class="position-absolute">
+                                    <div id="label">
+                                        <p>Student ID Card</p>
+                                    </div>
+
+                                    <table class="mt-1">
+                                        <tr>
+                                            <th>Student Number:</th>
+                                            <td>{{card.student.student_number}}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <th>First Name:</th>
+                                            <td>{{card.student.first_name}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Last Name:</th>
+                                            <td>{{card.student.last_name}}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <th>Gender:</th>
+                                            <td>{{card.student.gender}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Programme:</th>
+                                            <td>{{card.student.enrollment.program.code}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Expire Date:</th>
+                                            <td>{{card.expire_date}}</td>
+                                        </tr>
+                                    
+                                    </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div id="footer">
+                            <div class="position-relative" >
+                                <div class="position-absolute top-0 start-0 fst-italic mt-2">
+                                    Registrar: <img src="{% signature card.signatory %}" alt="registrar" style="width:80px;"/> 
+                                </div>
+                                <div class="position-absolute top-0 end-0 fst-italic ">
+                                    Holder: <img src="{% signature card.student.user %}" alt="student" style="width:50px;"/> 
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <div class="page-break"></div>
+        
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="backside">
+                            <p class="text-center ">
+                                {% qr_from_data card.qrcode_info size="4" %}
+                            </p>
+                            <p class="text-center">Property of {% org_name %}. <br/> If found, please return to the nearest police station, or report to:</p>
+                            <address class="text-center fst-italic " style="font-size:8px;">
+                                {% org_name %} <br/>
+                                {% org_postal_address %},
+                                {% org_city %}, {% org_country %}<br/>
+                                Tel: {% org_telephone_one %},
+                                Email: {% org_email_address %}
+                            </address>
+                        
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </body>
+</html>

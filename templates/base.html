@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}SARIS{% endblock %}    
+        </title>
+
+        {% include "styles.html" %}
+        {% block styles %}{% endblock%}
+    </head>
+
+    <body>      
+        <div id="app">
+            <div id="sidebar" class="active">
+                <div class="sidebar-wrapper active">
+                    <div class="sidebar-header">
+                        <div class="d-flex justify-content-between">
+                            <div class="logo">
+                                {% block app_title %}
+                                    <a href="{% url 'home' %}">SARIS</a>
+                                {% endblock %}
+                            </div>
+                            <div class="toggler">
+                                <a href="#" class="sidebar-hide d-xl-none d-block">
+                                    <i class="bi bi-x bi-middle"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-menu">
+                        {% block sidebar %}{% endblock %}
+                    </div>
+                    <button class="sidebar-toggler btn x">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="main" class="layout-navbar">
+                {% include "header.html" %}
+                <div id="main-content">
+                    {% include "alert.html" %}
+                    {% block content %}{% endblock %}         
+                </div>
+            </div>
+        </div>
+        
+        {% include "scripts.html" %}
+        {% block scripts %}{% endblock %}
+    </body>
+
+</html>

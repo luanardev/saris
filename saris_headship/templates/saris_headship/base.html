@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load active_link_tags %}
+
+{% block title %}Saris - Headship{% endblock %}
+{% block app_title %}Headship{% endblock %}
+
+{% block sidebar %} 
+<ul class="menu">
+    <li class="sidebar-title">Menu</li>
+
+    <li class="sidebar-item">
+        <a href="{% url 'headship:home' %}" class='sidebar-link'>
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'headship:lecturercourse.browse' %} ">
+        <a href="{% url 'headship:lecturercourse.browse' %}" class='sidebar-link'>
+            <i class="fa fa-external-link"></i>
+            <span>Course Allocation</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'headship:courseremark.browse' %} ">
+        <a href="{% url 'headship:courseremark.browse' %}" class='sidebar-link'>
+            <i class="fa fa-refresh"></i>
+            <span>Course Remark</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'headship:gradecorrection.browse' %}">
+        <a href="{% url 'headship:gradecorrection.browse' %}" class='sidebar-link'>
+            <i class="fa fa-edit"></i>
+            <span>Grade Correction</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'headship:grades.missing' %} ">
+        <a href="{% url 'headship:grades.missing' %}" class='sidebar-link'>
+            <i class="fa fa-question-circle"></i>
+            <span>Missing Grades</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'headship:supplementary' %} ">
+        <a href="{% url 'headship:supplementary' %}" class='sidebar-link'>
+            <i class="fa fa-question-circle"></i>
+            <span>Supplementary</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item ">
+        <a href="" class='sidebar-link'>
+            <i class="fa fa-calendar"></i>
+            <span>Teaching Timetable</span>
+        </a>
+    </li>
+
+</ul>
+{% endblock %}

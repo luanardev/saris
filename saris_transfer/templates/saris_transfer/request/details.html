@@ -1,0 +1,102 @@
+{% extends 'saris_transfer/base.html' %}
+{% load django_bootstrap5 %}
+{% load saris_tags %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3> {{transfer.transfer_type|capitalize}} Transfer</h3>
+                <h4 class="text-muted">
+                    <i class="fa fa-id-card"></i> ({{transfer.enrollment.student.student_number}}) {{transfer.enrollment.student}}
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-text">
+                            {% if transfer.can_cancel %}
+                            <a href="{% url 'transfer:request.cancel' transfer.pk %}" class="btn btn-sm btn-danger">
+                                Cancel
+                            </a>
+                            {% endif %}
+                                   
+                            <a href="{% url 'transfer:request.browse' %}" class="btn btn-sm btn-light-primary">
+                                Browse
+                            </a>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>Student ID<th>
+                                <td>{{transfer.enrollment.student.student_number}}<td>
+                            </tr>
+                            <tr>
+                                <th>Student Name<th>
+                                <td>{{transfer.enrollment.student.title}} {{transfer.enrollment.student}}<td>
+                            </tr>
+                            <tr>
+                                <th>Current Program<th>
+                                <td>{{transfer.enrollment.program}}<td>
+                            </tr>
+                            <tr>
+                                <th>Current Campus<th>
+                                <td>{{transfer.enrollment.campus}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Transfer Request<th>
+                                <td>{{transfer.transfer_type|capitalize}} Transfer<td>
+                            </tr>
+                            <tr>
+                                <th>Academic Semester<th>
+                                <td>{{transfer.academic_semester}}<td>
+                            </tr>
+                            <tr>
+                                <th>Request Summary<th>
+                                <td>{{transfer.request_summary}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Requested Program<th>
+                                <td>{{transfer.new_program}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Requested Campus<th>
+                                <td>{{transfer.new_campus}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Request Status<th>
+                                <td>{{transfer.request_status}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Approval Status<th>
+                                <td>{{transfer.approval_status}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Approval Date<th>
+                                <td>{{transfer.approval_date}}<td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

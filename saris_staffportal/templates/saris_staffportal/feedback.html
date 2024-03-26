@@ -1,0 +1,20 @@
+{% include "saris_staffportal/base.html" %}
+
+{% block content %} 
+    <div id="error">
+        <div class="error-page container">
+            <div class="col-md-8 col-12 offset-md-2">
+                <div class="text-center">
+                    {% if success %}
+                        <h2 class="error-title text-success">{{title}}</h2>
+                    {% endif %}
+                    {% if not success %}
+                        <h2 class="error-title text-danger">{{title}}</h2>
+                    {% endif %}
+                    <p class="fs-3 text-gray-600">{{message}}</p>
+                    <a href="{% url redirect_url %}" class="btn btn-lg btn-outline-primary mt-3">Okay</a>
+                </div>
+            </div>
+        </div>
+    </div>    
+{% endblock %}

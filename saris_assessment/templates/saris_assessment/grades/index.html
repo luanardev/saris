@@ -1,0 +1,163 @@
+{% extends 'saris_assessment/base.html' %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Grades Manager</h3>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          
+            <div class="col">
+                <a href="{% url 'assessment:grades.process' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-gear"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Process Grades</h5>
+                                    <p class="card-text">Process students grades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'assessment:grades.missing.process' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-gear"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Process Missing Grades</h5>
+                                    <p class="card-text">Process students grades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'assessment:appeals.process' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-gear"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Process Appeals</h5>
+                                    <p class="card-text">Process students appeals</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'assessment:supplementary.process' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-gear"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Process Supplementary</h5>
+                                    <p class="card-text">Process supplementary grades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'assessment:grades.publish' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-globe"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Publish Grades</h5>
+                                    <p class="card-text">Publish grades for all students</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col">
+                <a href="{% url 'assessment:appeals.publish' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-globe"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Publish Appeals</h5>
+                                    <p class="card-text">Publish appeals for all students</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'assessment:supplementary.publish' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-globe"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Publish Supplementary</h5>
+                                    <p class="card-text">Publish supplementary grades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+        </div>
+        
+    </section>
+</div>
+
+{% endblock %}

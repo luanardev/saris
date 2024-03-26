@@ -1,0 +1,49 @@
+{% load static %}
+{% load saris_tags %}
+{% load saris_institution_tags %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admission Letter</title>
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+        <style>
+            
+            body{
+                font-family: Arial;
+                font-size: 13px;
+                text-align: justify;
+                background-color: white;
+                color: black;
+            }
+
+            .page-break{
+                page-break-after: always;
+            }
+
+            table tr td{
+                padding-left:20px;
+            }
+
+            @page{
+                font-size:13px;
+                @bottom-right{
+                    content: "Page " counter(page);
+                }
+            }
+
+            @page{
+                font-size:13px;
+                @bottom-left{
+                    content: "{% now 'd M Y' %}";
+                }
+            }
+
+        </style>
+       
+    </head>
+
+    <body>       
+        {% include "saris_admission/letter/content.html" with letter=letter %}
+    </body>
+</html>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load active_link_tags %}
+
+{% block title %}Saris - Students{% endblock %}
+{% block app_title %}Students{% endblock %}
+
+{% block sidebar %} 
+<ul class="menu">
+    <li class="sidebar-title">Menu</li>
+
+    <li class="sidebar-item ">
+        <a href="{% url 'students:home' %}" class='sidebar-link'>
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'students:browse' %}  ">
+        <a href="{% url 'students:browse' %}" class='sidebar-link'>
+            <i class="fa fa-folder-open"></i>
+            <span>Student Directory</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'students:card' %}  ">
+        <a href="{% url 'students:card' %}" class='sidebar-link'>
+            <i class="fa fa-id-card"></i>
+            <span>Student ID Card</span>
+        </a>
+    </li>
+
+</ul>
+{% endblock %}

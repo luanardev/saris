@@ -1,0 +1,223 @@
+{% load static %}
+{% load saris_tags user_tags %}
+{% load saris_institution_tags %}
+
+<div class="container-fluid">
+   
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="position-relative">
+                    
+                    <div class="position-absolute top-0 start-0">
+                        <img src="{% org_logo %}" alt="logo" style="width:90px;"/>
+                    </div>
+                    <div class="position-absolute top-0 end-0 ">
+                        <address style="font-size:12px; text-align: right;">
+                            {% org_name %} <br/>
+                            {% org_postal_address %} <br/>
+                            {% org_city %}, {% org_country %} <br/>
+                            Tel: {% org_telephone_one %}<br/>
+                            Email: {% org_email_address %}
+                        </address>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="margin-top:140px;">
+        <div class="position-absolute start-50 translate-middle">
+            <h2 class="text-uppercase" style="font-size:16px;">
+                LETTER OF ADMISSION
+            </h2>
+        </div>
+    </section>
+     
+    <section class="section" style="margin-top:180px;">
+        <div class="position-relative">
+            <div class="position-absolute top-0 start-0">
+                <address style="font-size:12px;">
+                    <p>{% now "d M Y" %}</p>
+                    <p>
+                        <span class="text-uppercase fw-bold ">
+                            {{letter.enrollment.student}}
+                        </span> <br/>
+                        <span>
+                            {{letter.enrollment.student.postal_address}}
+                        </span>
+                    </p>
+                    <p style="font-size:13px;">
+                        Dear {{letter.enrollment.student}}
+                    </p>
+                </address>
+      
+                <h4 class="text-uppercase">
+                    Admission into {{letter.enrollment.program}} Programme for the
+                    {{letter.enrollment.academic_year}} Academic Year at {{letter.enrollment.campus}}
+                </h4>
+              
+            </div>
+        </div>
+
+    </section>  
+
+    <section class="section">
+        <p>
+            On behalf of the council of the {% org_name %}, I am pleased to offer you admission into {{letter.enrollment.program}} Programme at
+            {{letter.enrollment.campus}}. We were impressed with your academic achievements and
+            potential to succeed in the programme you have been offered. Therefore,
+            we wish to guarantee you an unparalleled setting for the next chapter of
+            your scholarly life at {% org_acronym %}.
+        </p>
+
+        <h6>Admission details.</h6>
+
+        <table>
+            <tr>
+                <th>Student Number:</th>
+                <td>{{letter.enrollment.student.student_number}}</td>
+            </tr>
+            <tr>
+                <th>Program of Study:</th>
+                <td>{{letter.enrollment.program}}</td>
+            </tr>
+            <tr>
+                <th>Semester of Study:</th>
+                <td>{{letter.enrollment.initial_semester}}</td>
+            </tr>
+            <tr>
+                <th>Campus of Study:</th>
+                <td>{{letter.enrollment.campus}}</td>
+            </tr>
+        </table>
+        <p>You should always quote your Student Number in your correspondence with the university.</p>
+    
+        <h6>Fees and mode of payment.</h6>
+        <table>
+            <tr>
+                <th>Tuition Fee:</th>
+                <td class="fw-bold ">MK {{letter.tuition.amount}}</td>
+            </tr>
+        </table><br/>
+
+        <p>Fees should be deposited to the following Bank Account:</p>
+        <table>
+            <tr>
+                <th>Bank Name:</th>
+                <td>{{letter.bank.bank_name}}</td>
+            </tr>
+            <tr>
+                <th>Account Name:</th>
+                <td>{{letter.bank.account_name}}</td>
+            </tr>
+            <tr>
+                <th>Account Number:</th>
+                <td>{{letter.bank.account_number}}</td>
+            </tr>
+            
+        </table><br/>
+           
+        <p>
+            Proof of payment should  always bear your Student ID Number. 
+            Please note that the Unversity reserves the right to revise the fees at any time.
+        </p>
+
+    </section>
+
+    <div class="page-break"></div>
+
+    <section class="section">
+        <h6>Requirements for registration.</h6>
+
+        <p>
+            Registration closes two weeks after commencement of every semester and
+            its governed by the provisions contained in the students Rules and
+            Regulations. Every student whose fees is paid through any scholarship
+            shall be required to provide proof of the scholarship notification to
+            the University before registration. Only candidates who will
+            have paid the appropriate fees and fulfilled the requirements for
+            registration shall be allowed to attend classes and access to other
+            university facilities.
+        </p>
+
+        <h6>Board and lodging.</h6>
+
+        <p>
+            You will be required to plan for board and shelter for the entire
+            duration of your studies.
+        </p>
+
+        <h6>Rules and regulations.</h6>
+
+        <p>
+            Acceptance of this offer binds you to the rules and regulations
+            governing your studies at the University. These rules and regulations can be
+            accessed from the Registry or the University's website
+        </p>
+
+        <h6>Accuracy of information.</h6>
+
+        <p>
+            The University reserves the right to cancel your admission at any time
+            if it is established that you provided false or inaccurate information
+            for your application or registration processes.
+        </p>
+
+        <h6>Other things to note</h6>
+
+        <p>
+            If for any valid reason you are unable to take up your place at the University
+            as required, you should reserve your place for one academic year by
+            submitting a filled place reservation form which can be obtained from
+            {{letter.enrollment.campus}} within two weeks from the commencement of programme. 
+            For more information, please contact the Admissions Office using the address above.
+        </p>
+    </section>
+
+    <section class="section">
+        <h6>Student Portal Login Details</h6>
+        <p> A student portal account for online registration has been created for you. Here are your login credentials:
+        <table style="font-size:16px; color:black;">
+            <tr>
+                <th>Username:</th>
+                <td>{{letter.enrollment.student.student_number}}</td>
+            </tr>
+            <tr>
+                <th>Password:</th>
+                <td>{{letter.enrollment.student.passcode}}</td>
+            </tr>
+        </table>
+        <p style="font-size:14px; font-weight:bold;">
+            Online Registration Instructions
+        </p>
+        <ol>
+            <li>
+                Visit the University's website <a href="{% org_website %}">{% org_website %}</a>  and click on <strong>student portal</strong>.
+            </li>
+            <li>
+                Fill in your Username and Password on the login page and submit.
+            </li>
+            <li>
+                Complete all sections of the online registration form.
+            </li>
+        </ol>
+        <br/>
+    </section>
+    
+    <section class="section">
+        <p>
+            Finally, I wish you all the best in your studies, and I am pleased to
+            inform you that the entire {% org_acronym %} family is looking forward to
+            interacting with you should you decide to accept this offer for
+            admission.
+        </p>
+        <br/>
+        
+        <p><img src="{% signature letter.signatory %}" alt="{{ letter.signatory.signature }}" style="width:200px;"></p>
+        <p class="text-uppercase " style="font-size:14px;">{{letter.signatory}}</p>
+        <h6 class="text-uppercase">{{letter.signatory.group}}</h6>
+    </section>
+
+</div>    

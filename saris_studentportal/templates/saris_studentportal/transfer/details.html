@@ -1,0 +1,96 @@
+{% extends "saris_studentportal/base.html" %}
+{% load i18n %}
+
+{% block content_title %} {% trans 'Transfer' %} {% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'studentportal:home' %}">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'studentportal:tranfers' %}">{% trans 'Transfers' %}</a></li>
+        <li class="breadcrumb-item">{% trans 'Transfer' %}</li>
+    </ol>
+{% endblock %}
+
+{% block page_actions %}
+<div class="col-12 col-md-auto d-flex align-items-center justify-content-end page-actions">
+    <div class="float-right">
+        {% if transfer.can_cancel %}
+            <a href="{% url 'studentportal:cancel_transfer' transfer.pk %}" class="btn btn-sm btn-danger">
+                Cancel
+            </a>
+        {% endif %}                       
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %} 
+<div class="container ">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-text">
+                            
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borderless ">
+                            <tr>
+                                <th>Academic Semester<th>
+                                <td>{{transfer.academic_semester}}<td>
+                            </tr>
+                            <tr>
+                                <th>Request Summary<th>
+                                <td>{{transfer.request_summary}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Current Program<th>
+                                <td>{{transfer.enrollment.program}}<td>
+                            </tr>
+                            <tr>
+                                <th>Current Campus<th>
+                                <td>{{transfer.enrollment.campus}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Requested Program<th>
+                                <td>{{transfer.new_program}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Requested Campus<th>
+                                <td>{{transfer.new_campus}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Request Status<th>
+                                <td>{{transfer.request_status}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Request Date<th>
+                                <td>{{transfer.request_date}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Approval Status<th>
+                                <td>{{transfer.approval_status}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Approval Date<th>
+                                <td>{{transfer.approval_date}}<td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

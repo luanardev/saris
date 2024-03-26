@@ -1,0 +1,251 @@
+{% load static %}
+{% load saris_tags %}
+{% load saris_institution_tags %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Graduation Booklet</title>
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+        <style>
+            body{
+                font-family: arial;
+                font-size:13px;
+                background-color: white;
+                color: black;
+            }
+
+            .page-break{
+                page-break-after: always;
+            }
+
+            .gradetable {
+                color:black;
+                width:100%;
+                font-size: 12px;
+                text-transform:capitalize;
+            }
+
+            .gradetable-bordered td{
+                text-align:center;
+            }
+
+            .gradetable-bordered, .gradetable-bordered th, .gradetable-bordered td{
+                border: 1px solid black;
+                border-collapse: collapse;
+
+            }
+
+            th.transform {
+                writing-mode: tb-rl;
+                transform: rotate(-90deg);
+                height:80px;
+                width:10px;
+              
+            }
+
+            @page{
+                size: portrait;
+            }
+
+
+            @page{
+                font-size:13px;
+                @bottom-right{
+                    content: "Page " counter(page) "/" counter(pages);
+                }
+            }
+
+            
+            @page{
+                font-size:13px;
+                @bottom-center{
+                    content: "{{booklet.created_date}} - {{booklet.session}}";
+                }
+            }
+
+        </style>
+       
+    </head>
+
+    <body>
+
+        <div class="container-fluid">    
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="position-relative">
+                            <div class="position-absolute top-0 start-50 translate-middle-x ">
+                                <img src="{% org_logo %}" alt="logo" style="width:120px;"/>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" style="margin-top:180px;">
+                <h2 class="text-uppercase text-center">
+                    {% org_name %} <br/> ({% org_acronym %})
+                </h2>
+            </section>
+
+            <section class="section" style="margin-top:40px;">
+                <h2 class="text-uppercase text-center ">
+                    Graduation Booklet
+                </h2>
+                <br/><br/>
+                <h2 class="text-uppercase text-center ">
+                    {{booklet.session}}
+                </h2>
+                
+                <br/><br/>
+                <h3 class="text-center">{{booklet.created_date}}</h3>
+            </section>
+
+            <div class="page-break"></div>
+
+            <section class="section">
+                <div class="text-center text-uppercase fw-bold" style="font-size:18px;">
+                    <p>Graduation Report</p>                             
+                </div>
+                <div class="table-responsive ">      
+                                
+                    <table class="gradetable gradetable-bordered ">
+                        <thead>
+                            <tr class="text-center">
+                                <th>#</th>
+                                <th>Programme</th>
+                                <th>Male</th>
+                                <th>Female</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for program_booklet in booklet.get_program_booklets%}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{program_booklet.program.name}}</td>
+                                <td>{{program_booklet.get_total_male}}</td>
+                                <td>{{program_booklet.get_total_female}}</td> 
+                                <td>{{program_booklet.get_total_candidates}}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td>#</td>
+                                <td>Total Candidates</td>
+                                <td>{{booklet.get_total_male}}</td>
+                                <td>{{booklet.get_total_female}}</td> 
+                                <td>{{booklet.get_total_candidates}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="page-break"></div>
+
+            {% for program_booklet in booklet.get_program_booklets %}
+
+                <section class="section">
+                    <div class="text-center text-uppercase fw-bold" style="font-size:18px;">
+                        <p>{{program_booklet.program.name}} ({{program_booklet.program.code}})</p>                             
+                    </div>
+                </section>
+
+                <section class="section">
+                    <p class="text-center text-uppercase  fw-bold" style="font-size:16px;">
+                        Performance Summary
+                    </p>
+
+                    <div class="table-responsive ">      
+                                
+                        <table class="gradetable gradetable-bordered ">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Award</th>
+                                    <th>Male</th>
+                                    <th>Female</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for performance in program_booklet.get_performance %}
+                                    <tr>
+                                        <td>{{performance.award_class}}</td>
+                                        <td>{{performance.get_total_male}}</td>
+                                        <td>{{performance.get_total_female}}</td> 
+                                        <td>{{performance.get_total_candidates}}</td>
+                                    </tr>
+                                {% endfor %}
+                                    <tr>
+                                        <td>Total Candidates</td>
+                                        <td>{{program_booklet.get_total_male}}</td>
+                                        <td>{{program_booklet.get_total_female}}</td> 
+                                        <td>{{program_booklet.get_total_candidates}}</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </section>
+
+                <section class="section mt-5 " >
+                    <div class="text-center text-uppercase fw-bold" style="font-size:16px;">
+                        <p> List of Candidates</p>                             
+                    </div>
+
+                    <table class="gradetable gradetable-bordered ">
+                        <thead>
+                            <tr class="text-center">
+                                <th>#</th>
+                                <th>Candidate</th>
+                                <th>Award Class</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for candidate in program_booklet.get_candidates %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{candidate.enrollment.student.name}}</td>
+                                    <td>{{candidate.enrollment.award_class}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="section mt-5 ">
+                    <p class="text-center text-uppercase  fw-bold" style="font-size:16px;">
+                        Compensatory Awards
+                    </p>
+
+                    <div class="table-responsive ">      
+                                
+                        <table class="gradetable gradetable-bordered ">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Candidate</th>
+                                    <th>Award Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for candidate in program_booklet.get_compensations %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{candidate.enrollment.student.name}}</td>
+                                        <td>{{candidate.enrollment.award_name}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </section>
+
+                <div class="page-break"></div>
+            {% endfor %}
+
+        </div>
+    </body>
+</html>

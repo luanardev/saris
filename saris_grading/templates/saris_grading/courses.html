@@ -1,0 +1,72 @@
+{% extends 'saris_grading/base.html' %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>My Courses</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            {% if manager.has_registration %}
+
+                {% for registration in manager.get_registrations %}
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <i class="fa fa-graduation-cap"></i> {{registration.campus}} ({{registration.academic_semester}})
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>COURSE</th>
+                                                <th>STUDENTS</th>
+                                                <th>GRADED</th>
+                                                <th>MISSING</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for registered in registration.get_courses%}
+                                            <tr>
+                                                <td><a href="{% url 'grading:classlist' registered.pk %}">{{registered.course.code}} - {{registered.course.name}}</a></td>
+                                                <td>{{registered.class_size}}</td>
+                                                <td>{{registered.total_grades}}</td>
+                                                <td>{{registered.total_missing}}</td> 
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div id="error">
+                    <div class="error-page container">
+                        <div class="col-md-8 col-12 offset-md-2">
+                            <div class="text-center">
+                                <h2 class="error-title text-danger ">Oops! there's a problem</h2>
+                                <p class="fs-3 text-gray-600">You do not have registered courses</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            {% endif %}
+        </div>
+    </section>
+</div>
+
+{% endblock %}

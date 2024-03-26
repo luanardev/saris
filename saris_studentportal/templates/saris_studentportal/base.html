@@ -1,0 +1,278 @@
+{% extends 'saris_studentportal/root.html' %}
+
+
+{% block sidebar %} 
+<li class="nav-item">
+    <a href="{% url 'studentportal:home' %}" class='nav-link'>
+        <i class="nav-icon fa fa-home"></i>
+        <span>Dashboard</span>
+    </a>
+</li>
+
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-money-bill"></i>
+        <p>Finance <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        
+        <li class="nav-item ">
+            <a href="{% url 'studentportal:wallet' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>My Wallet</span>
+            </a>
+        </li>
+        
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:invoices' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Invoices</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:payments' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Payments</span>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-user-graduate"></i>
+        <p>Registration <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        <li class="nav-item">
+            <a href="{% url 'studentportal:registration' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Registration</span>
+            </a>
+        </li>
+        
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:courses' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>My Courses</span>
+            </a>
+        </li> 
+        
+    </ul>
+</li>
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-book"></i>
+        <p>Examination <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:exam_permit' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Exam Permit</span>
+            </a>
+        </li>
+        
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:exam_results' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Exam Results</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:supplementary' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Supplementary</span>
+            </a>
+        </li> 
+
+    </ul>
+</li>
+
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa fa-gavel"></i>
+        <p>Course Appeal <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:course_remark' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Course Remark</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:grade_correction' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Grade Correction</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:course_appeals' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>My Appeals</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-file"></i>
+        <p>Result Statement <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:result_statement' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Statement</span>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-calendar"></i>
+        <p>School Timetable <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        
+        <li class="nav-item  ">
+            <a href="#" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Class Timetable</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="#" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Exam Timetable</span>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa fa-sync"></i>
+        <p>Student Transfer <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:change_campus' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Change Campus</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:change_program' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Change Programme</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:transfers' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>My Transfers</span>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa fa-building"></i>
+        <p>Accommodation <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        
+        <li class="nav-item  ">
+            <a href="#" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Apply Now</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="#" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>My Room</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-sign-out-alt"></i>
+        <p>Withdrawal <i class="fa fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+
+        <li class="nav-item  ">
+            <a href="{% url 'studentportal:withdrawals' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Withdrawal</span>
+            </a>
+        </li>
+        
+    </ul>
+</li>
+    
+
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa fa-link"></i>
+        <p>Resource Center <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        <li class="nav-item  ">
+            <a href="#" class='nav-link'>
+            	<i class="far fa-circle nav-icon"></i>
+                <span>Moodle</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="#" class='nav-link'>
+            	<i class="far fa-circle nav-icon"></i>
+                <span>Publications</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="#" class='nav-link'>
+            	<i class="far fa-circle nav-icon"></i>
+                <span>Student Polls</span>
+            </a>
+        </li>
+
+        <li class="nav-item  ">
+            <a href="#" class='nav-link'>
+            	<i class="far fa-circle nav-icon"></i>
+                <span>Downloads</span>
+            </a>
+        </li>
+    </ul>
+</li>
+{% endblock %}

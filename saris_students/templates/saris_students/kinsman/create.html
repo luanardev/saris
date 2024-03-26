@@ -1,0 +1,44 @@
+{% extends 'saris_students/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h4 class="text-muted">
+                    <i class="fa fa-user-plus"></i> Create Next of Kin
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+              
+                <form action="" method="post" class="form">
+                    {% csrf_token %}
+                    <div class="card">
+                        
+                        <div class="card-body mt-4 ">
+                            <div class="col-lg-8">
+                                {% bootstrap_form form %}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            {% bootstrap_button button_type="submit" content="Submit" %}
+                            <a href="{% url 'students:student.profile' student.pk %}" class="btn btn-light-secondary">Cancel</a>
+                        </div>
+                    </div>
+                    
+                </form>
+                
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "saris_studentportal/base.html" %}
+
+{% block content %}
+<div class="container ">
+    <div id="error">
+        <div class="error-page">
+            <div class="col-md-8 col-12 offset-md-2">
+                <div class="text-center">
+                    {% if success %}
+                        <h4 class="error-title text-success">{{title}}</h4>
+                    {% endif %}
+                    {% if not success %}
+                        <h4 class="error-title text-danger">{{title}}</h4>
+                    {% endif %}
+                    <h5 class="fs-3 text-gray-600">{{message}}</h5>
+                    <a href="{% url redirect_url %}" class="btn btn-outline-primary mt-3">Okay</a>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>   
+{% endblock %}

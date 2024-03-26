@@ -1,0 +1,109 @@
+{% extends 'saris_grading/base.html' %}
+{% load render_table from django_tables2 %}
+{% load export_url from django_tables2 %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% load humanize %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-lg-12 col-md-6">
+                <h3>
+                    <i class="fa fa-book"></i> {{manager.course}}
+                </h3>
+                <h4 class="text-muted">
+                    <i class="fa fa-graduation-cap"></i> 
+                    {{manager.campus}} ({{manager.academic_semester}})
+                </h4>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+
+    <section class="section mb-4">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'grading:classlist' manager.pk %}">
+                    <i class="fa fa-arrow-left"></i> Go Back
+                </a>
+            </li>
+         
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'grading:resultsheet' manager.pk %}">
+                    <i class="fa fa-file-text"></i> Result Sheet
+                </a>
+            </li>
+        </ul>
+    </section>
+   
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fa fa-edit"></i> Grades Entrance</h4>
+                <p>You can enter grades in cells under CAS GRADE and EOS GRADE columns. The system will automatically save the grades entered when you MOVE OUT of the cell.</p>
+                <h6 class="text-muted fs-5">Notice: </h6>
+                <ul>
+                    <li>Continous Assessment Grade (CAS GRADE) <strong>MUST</strong> be marked out of <strong>{{manager.grade_bench_mark.continous_grade}}%</strong>.</li>
+                    <li>End Of Semester Grade (EOS GRADE) <strong>MUST</strong> be marked out of <strong>{{manager.grade_bench_mark.endsemester_grade}}%</strong>.</li>
+                    <li>The system <strong>WILL NOT</strong> accept grades that exceed the defined Benchmark.</li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-condensed table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>STUDENT</th>
+                                        <th>PROGRAM CODE</th>
+                                        <th>CAS GRADE</th>
+                                        <th>EOS GRADE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for class in manager.get_class%}
+                                    <tr>
+                                        <td>{{class.enrollment.student.student_number}}</td>
+                                        <td>{{class.enrollment.student}}</td>  
+                                        <td>{{class.enrollment.program.code}}</td>  
+                                        <td class="editable-ca" contenteditable="true" data-id="{{class.pk}}" data-eos="{{class.endsemester_grade}}">
+                                            {% if class.continous_grade %}
+                                                {{class.continous_grade}}
+                                            {% endif %}
+                                        </td> 
+                                        <td class="editable-eos" contenteditable="true" data-id="{{class.pk}}" data-ca="{{class.continous_grade}}">
+                                            {% if class.endsemester_grade %}
+                                                {{class.endsemester_grade}}
+                                            {% endif %}
+                                        </td> 
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <form id="gradeform" method="post" action="{% url 'grading:submitgrade' %}">
+                                {% csrf_token %}
+                            </form>
+                            <div id="error"></div>
+                        </div>
+                    </div>
+                </div>      
+            </div>   
+        </div> 
+    </section>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'assets/js/gradeentry.js' %}"></script>
+{% endblock %}

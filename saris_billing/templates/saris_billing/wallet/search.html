@@ -1,0 +1,47 @@
+{% extends "saris_billing/base.html" %}
+{% load render_table from django_tables2 %}
+{% load django_bootstrap5 %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Student Wallet</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+                        {% include "search_form.html" %}
+                    </div>
+                </div>
+                {% if filter.form.is_valid %}  
+                <div class="mt-2">
+                    <ul class="list-group list-group-flush">
+                    {% for enrollment in filter.qs %}
+                        <a href="{% url 'billing:wallet.browse' enrollment.student_id %}" class="list-group-item list-group-item-action mb-2 p-lg-4" aria-current="true">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">({{enrollment.student.student_number}}) {{enrollment.student}}</h6>
+                                <small>{{enrollment.academic_year}}</small>
+                            </div> 
+                            <h6 class="mb-1">{{enrollment.program}}</h6>
+                        </a>
+                    {% endfor %}
+                    </ul>
+                </div> 
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load active_link_tags %}
+
+{% block title %}Saris - Billing{% endblock %}
+{% block app_title %}Billing{% endblock %}
+
+{% block sidebar %} 
+<ul class="menu">
+    <li class="sidebar-title">Menu</li>
+
+    <li class="sidebar-item">
+        <a href="{% url 'billing:home' %}" class='sidebar-link'>
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'billing:invoice.create' %}  ">
+        <a href="{% url 'billing:invoice.create' %}" class='sidebar-link'>
+            <i class="fa fa-file-invoice"></i>
+            <span>Issue Invoice</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'billing:invoice.bulk_create' %}  ">
+        <a href="{% url 'billing:invoice.bulk_create' %}" class='sidebar-link'>
+            <i class="fa fa-file-invoice"></i>
+            <span>Issue Bulk Invoice</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item  {% active_link 'billing:invoice.browse' %}">
+        <a href="{% url 'billing:invoice.browse' %}" class='sidebar-link'>
+            <i class="fa fa-folder-open"></i>
+            <span>Browse Invoice</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'billing:invoice.search' %} ">
+        <a href="{% url 'billing:invoice.search' %}" class='sidebar-link'>
+            <i class="fa fa-search"></i>
+            <span>Search Invoice</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'billing:transaction.credit' %} ">
+        <a href="{% url 'billing:transaction.credit' %}" class='sidebar-link'>
+            <i class="fa fa-plus-circle"></i>
+            <span>Credit Student</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'billing:transaction.debit' %} ">
+        <a href="{% url 'billing:transaction.debit' %}" class='sidebar-link'>
+            <i class="fa fa-minus-circle"></i>
+            <span>Debit Student</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'billing:wallet.search' %} ">
+        <a href="{% url 'billing:wallet.search' %}" class='sidebar-link'>
+            <i class="fa fa-dollar-sign"></i>
+            <span>Student Wallet</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'billing:transaction.import' %} ">
+        <a href="{% url 'billing:transaction.import' %}" class='sidebar-link'>
+            <i class="fa fa-file-import"></i>
+            <span>Credit Students</span>
+        </a>
+    </li>
+
+
+</ul>
+{% endblock %}

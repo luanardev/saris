@@ -1,0 +1,33 @@
+{% extends "saris_admission/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Admission Letters</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-lg-8" >   
+                            {% include "filter_form.html" %}
+                        </div>
+                    </div>
+                </div>        
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+

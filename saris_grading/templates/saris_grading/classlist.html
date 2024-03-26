@@ -1,0 +1,158 @@
+{% extends 'saris_grading/base.html' %}
+{% load render_table from django_tables2 %}
+{% load export_url from django_tables2 %}
+{% load django_bootstrap5 %}
+{% load humanize %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-lg-12 col-md-6">
+                <h3>
+                    <i class="fa fa-book"></i> {{manager.course}}
+                </h3>
+                <h4 class="text-muted">
+                    <i class="fa fa-graduation-cap"></i> 
+                    {{manager.campus}} ({{manager.academic_semester}})
+                </h4>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+
+    <section class="section mb-4">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'grading:courses' %}">
+                    <i class="fa fa-arrow-left"></i> Go Back
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'grading:entergrade' manager.pk %}">
+                    <i class="fa fa-edit"></i> Grade Entry
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'grading:uploadgrade' manager.pk %}">
+                    <i class="fa fa-upload"></i> Grade Upload
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'grading:resultsheet' manager.pk %}">
+                    <i class="fa fa-file-text"></i> Result Sheet
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'grading:gradetemplate' manager.pk %}">
+                    <i class="fa fa-file-download"></i> Get Template
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col"> 
+                <div class="card h-80">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon green">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="font-semibold">Total Students</h6>
+                                <h5 class="card-text">{{manager.class_size}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="col"> 
+                <div class="card h-80">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon purple">
+                                    <i class="fa fa-book"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="font-semibold">Grade Entry</h6>
+                                <h5 class="card-text">{{manager.total_grades}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="col"> 
+                <div class="card h-80">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon red">
+                                    <i class="fa fa-question"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="font-semibold">Missing Grades</h6>
+                                <h5 class="card-text">{{manager.total_missing}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-target="#filterModal" data-bs-toggle="modal" data-bs-backdrop="false">
+                            <i class="fa fa-filter"></i> Filter
+                        </button>
+                        
+                        <a href="{% url 'grading:classlist' manager.pk %}" class="btn btn-sm btn-light-primary">
+                            <i class="fa fa-undo"></i> Reset
+                        </a>
+                        
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <a class="btn btn-sm btn-light-primary" type="button" id="dropdownMenuButtonSec" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-file-export"></i> Export
+                                </a>
+                                <div class="dropdown-menu">
+                                    {% for format in view.export_formats %}
+                                        <a href="{% export_url format %}" class="dropdown-item hover hover-bg-primary">
+                                            export  <code>.{{ format }}</code>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            {% render_table table %} 
+                        </div>
+                    </div>
+                </div>      
+            </div>   
+        </div> 
+    </section>
+
+</div>
+{% include "filter_modal.html" %}
+{% endblock %}

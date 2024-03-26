@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load active_link_tags %}
+
+{% block title %}Saris - Assessment{% endblock %}
+{% block app_title %}Assessment{% endblock %}
+
+{% block sidebar %} 
+<ul class="menu">
+    <li class="sidebar-title">Menu</li>
+
+    <li class="sidebar-item ">
+        <a href="{% url 'assessment:home' %}" class='sidebar-link'>
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'assessment:appeals' %} ">
+        <a href="{% url 'assessment:appeals' %}" class='sidebar-link'>
+            <i class="fa fa-gavel"></i>
+            <span>Course Appeals</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'assessment:supplementary' %} ">
+        <a href="{% url 'assessment:supplementary' %}" class='sidebar-link'>
+            <i class="fa fa-refresh"></i>
+            <span>Supplementary</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'assessment:results' %} ">
+        <a href="{% url 'assessment:results' %}" class='sidebar-link'>
+            <i class="fa fa-file-clipboard"></i>
+            <span>Result Statement</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'assessment:transcript' %} ">
+        <a href="{% url 'assessment:transcript' %}" class='sidebar-link'>
+            <i class="fa fa-file-pdf"></i>
+            <span>Academic Transcript</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item  {% active_link 'assessment:grades' %}">
+        <a href="{% url 'assessment:grades' %}" class='sidebar-link'>
+            <i class="fa fa-gear"></i>
+            <span>Grades Manager</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item  {% active_link 'assessment:gradebook' %}">
+        <a href="{% url 'assessment:gradebook' %}" class='sidebar-link'>
+            <i class="fa fa-book"></i>
+            <span>Grade Book</span>
+        </a>
+    </li>
+
+</ul>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "saris_headship/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %} 
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-first">
+                <h3>Course Allocation</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-last">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <a href="{% url 'headship:lecturercourse.create' %}" class="btn btn-sm btn-primary">Create</a>
+                    <a href="{% url 'headship:lecturercourse.import' %}" class="btn btn-sm btn-primary">Import</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">    
+                {% include "table.html" %}
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+
+

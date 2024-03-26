@@ -1,0 +1,112 @@
+{% extends 'saris_studentportal/base.html' %}
+{% load i18n %}
+
+{% block content_title %} {% trans 'Exam Results' %} {% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'studentportal:home' %}">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item">{% trans 'Exam Results' %}</li>
+    </ol>
+{% endblock %}
+
+{% block content %} 
+<div class="container">
+    <section class="section">
+        <div class="card">
+            <div class="card-header ">
+                <div class="card-title">
+                    <h5 class="text-uppercase ">
+                        Semester {{summary.semester}} - {{summary.academic_semester}}   
+                    </h5>
+                </div>  
+            </div> 
+            
+            <div class="card-body">
+
+                <div class="row"> 
+                    <div class="col-lg-12">
+                        
+                        <div class="table-responsive">      
+                            
+                            <table class="table">
+                                <thead class="bg-light">
+                                    <tr class="text-center">
+                                        <th>#</th>
+                                        <th>Course Code</th>
+                                        <th>Course Name</th>
+                                        <th>Credit Hours</th>
+                                        <th>Course Type</th>
+                                        <th>Course Attempt</th>
+                                        <th>CAS Grade</th>
+                                        <th>EOS Grade</th>
+                                        <th>Final Grade</th>
+                                        <th>Grade Point</th>
+                                        <th>Letter Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for student_course in grades %}
+                                    <tr class="text-center">  
+                                        <td>{{forloop.counter}}</td>  
+                                        <td>{{student_course.course.code}}</td>
+                                        <td>{{student_course.course.name}}</td>
+                                        <td>{{student_course.course.credit_hours}}</td>
+                                        <td>{{student_course.course_type|title}}</td>
+                                        <td>{{student_course.course_attempt|title}}</td>
+                                        <td>{{student_course.continous_grade}}</td>
+                                        <td>{{student_course.endsemester_grade}}</td>
+                                        <td>{{student_course.final_grade}}</td>
+                                        <td>{{student_course.grade_point}}</td>
+                                        <td>{{student_course.letter_grade}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+
+                            
+                            <table class="table ">
+                                <tr class="bg-light">
+                                    <td colspan="8">
+                                        <h6 class="text-uppercase ">
+                                            Performance  
+                                        </h6>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Semester GPA:</th>
+                                    <td>{{summary.semester_gpa}}</td>
+                                    <th>Semester Credits:</th>
+                                    <td>{{summary.semester_credits}}</td>
+                                </tr>
+                        
+                                {% if not summary.is_first_semester %}
+                                <tr>
+                                    <th>Cumulative GPA:</th>
+                                    <td>{{summary.cumulative_gpa}}</td>
+                                    <th>Cumulative Credits:</th>
+                                    <td>{{summary.cumulative_credits}}</td>
+                                </tr>
+                                {% endif %}
+                   
+                                <tr>
+                                    <th>Result Code:</th>
+                                    <td>{{summary.decision}}</td>
+                                    <th>Result Description:</th>
+                                    <td>{{summary.description|title}}</td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </div>
+                   
+                </div>
+
+            </div>          
+        </div>
+        
+    </section>
+</div>
+{% endblock %}

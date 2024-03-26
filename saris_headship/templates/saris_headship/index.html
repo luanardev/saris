@@ -1,0 +1,137 @@
+{% extends 'saris_headship/base.html' %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Welcome, {{ user.first_name }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <section class="section">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <a href="{% url 'headship:lecturercourse.browse' %}" >
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-book"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Course Allocation</h5>
+                                    <p class="card-text">Browse and allocate lecturer courses</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col" >
+                <a href="{% url 'headship:courseremark.browse' %}" >
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-refresh"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Course Remark</h5>
+                                    <p class="card-text">Browse and update remarked grades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col" >
+                <a href="{% url 'headship:gradecorrection.browse' %}" >
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-edit"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Grade Correction</h5>
+                                    <p class="card-text">Browse and correct grades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="col">
+                <a href="{% url 'headship:grades.missing' %}" >
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Missing Grades</h5>
+                                    <p class="card-text">Update missing grades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col" >
+                <a href="{% url 'headship:supplementary' %}" >
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-question-circle"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Supplementary</h5>
+                                    <p class="card-text">Upload supplementary grades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col" >
+                <a href="#" >
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Teaching Timetable</h5>
+                                    <p class="card-text">Browse teaching timetable</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

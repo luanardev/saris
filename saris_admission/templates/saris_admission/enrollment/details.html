@@ -1,0 +1,107 @@
+{% extends 'saris_admission/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3> Enrollment Details</h3>
+                <h4 class="text-muted">
+                    <i class="fa fa-id-card"></i> ({{enrollment.student.student_number}}) {{enrollment.student}}
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-text">
+                            <a href="{% url 'admission:enrollment.update' enrollment.pk %}" class="btn btn-sm btn-primary">
+                                Update
+                            </a>
+                            <a href="{% url 'admission:enrollment.browse' %}" class="btn btn-sm btn-light-primary">
+                                Browse
+                            </a>
+                            <a href="{% url 'admission:enrollment.letter' enrollment.pk %}" class="btn btn-sm btn-light-primary">
+                                Admission Letter
+                            </a>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borderless ">
+                            <tr>
+                                <th>Student ID</th>
+                                <td>{{enrollment.student.student_number}}</td>
+                            </tr>
+                            <tr>
+                                <th>Serial Number</th>
+                                <td>{{enrollment.serial_number}}</td>
+                            </tr>
+                            <tr>
+                                <th>Student Name</th>
+                                <td>{{enrollment.student.title}} {{enrollment.student}}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{enrollment.student.gender}}</td>
+                            </tr>
+                            <tr>
+                                <th>Date of Birth</th>
+                                <td>{{enrollment.student.date_of_birth}}</td>
+                            </tr>
+                            <tr>
+                                <th>Marital Status</th>
+                                <td>{{enrollment.student.marital_status}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email Address</th>
+                                <td>{{enrollment.student.email_address}}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone Number</th>
+                                <td>{{enrollment.student.phone_number}}</td>
+                            </tr>
+        
+                            <tr>
+                                <th>Program of Study</th>
+                                <td>{{enrollment.program}}</td>
+                            </tr>
+                            <tr>
+                                <th>Enrollment Year</th>
+                                <td>{{enrollment.academic_year}}</td>
+                            </tr>
+                            <tr>
+                                <th>Enrollment Semester</th>
+                                <td>{{enrollment.initial_semester}}</td>
+                            </tr>
+                            <tr>
+                                <th>Semester of Study</th>
+                                <td>{{enrollment.semester}}</td>
+                            </tr>
+                            <tr>
+                                <th>Campus of Study</th>
+                                <td>{{enrollment.campus}}</td>
+                            </tr>
+                            <tr>
+                                <th>Sponsorship</th>
+                                <td>{{enrollment.sponsorship_type}}</td>
+                            </tr>
+                            <tr>
+                                <th>Current Status</th>
+                                <td>{{enrollment.status}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

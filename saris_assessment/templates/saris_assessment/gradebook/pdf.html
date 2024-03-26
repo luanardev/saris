@@ -1,0 +1,333 @@
+{% load static %}
+{% load saris_tags %}
+{% load saris_institution_tags %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Grade Book</title>
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+        
+        <style>
+            body{
+                font-family: arial;
+                font-size:13px;
+                background-color: white;
+                color: black;
+            }
+
+            .page-break{
+                page-break-after: always;
+            }
+
+            .gradetable {
+                color:black;
+                width:100%;
+                font-size: 12px;
+                text-transform:capitalize;
+            }
+
+            .gradetable-bordered td{
+                text-align:center;
+            }
+
+            .gradetable-bordered, .gradetable-bordered th, .gradetable-bordered td{
+                border: 1px solid black;
+                border-collapse: collapse;
+
+            }
+
+            th.transform {
+                writing-mode: tb-rl;
+                transform: rotate(-90deg);
+                height:80px;
+                width:10px;
+              
+            }
+
+            @page{
+                size: landscape;
+            }
+
+
+            @page{
+                font-size:13px;
+                @bottom-right{
+                    content: "Page " counter(page) "/" counter(pages);
+                }
+            }
+
+            
+            @page{
+                font-size:13px;
+                @bottom-center{
+                    content: "{{gradebook.created_date}} - {{gradebook.academic_semester}} - {{gradebook.faculty }}";
+                }
+            }
+
+        </style>
+       
+    </head>
+
+    <body>
+        <div class="container-fluid">    
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="position-relative">
+                            <div class="position-absolute top-0 start-50 translate-middle-x ">
+                                <img src="{% org_logo %}" alt="logo" style="width:120px;"/>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" style="margin-top:180px;">
+                <h2 class="text-uppercase text-center">
+                    {% org_name %} <br/> ({% org_acronym %})
+                </h2>
+            </section>
+
+            <section class="section" style="margin-top:40px;">
+                <h2 class="text-uppercase text-center ">
+                    Overall Summary of Examination Results
+                </h2>
+                <br/><br/>
+                <h2 class="text-uppercase text-center ">
+                    {{gradebook.academic_semester}} Academic Semester
+                </h2>
+                <br/><br/>
+                <h2 class="text-uppercase text-center ">
+                    {{gradebook.faculty}}
+                </h2>
+                <br/><br/>
+                <h3 class="text-center">{{gradebook.created_date}}</h3>
+            </section>
+
+            <div class="page-break"></div>
+
+            {% for program_assessment in gradebook.get_assessments %}
+                <section class="section">
+                    <div style="margin-top: 200px;">
+                        <div class="text-center text-uppercase fw-bold" style="font-size:18px;">
+                            <p>{{program_assessment.program}} ({{program_assessment.program.code}})</p>
+                            <p>Semester of Study {{program_assessment.semester}}</p>                             
+                        </div>
+                    </div> 
+                </section>
+
+                <div class="page-break"></div>
+
+                <section class="section">
+                    <div class="row"> 
+                        <div class="col-lg-12">
+                            
+                            <div class="table-responsive ">      
+                                
+                                <table class="gradetable gradetable-bordered ">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>#</th>
+                                            <th>Student No</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th class="transform">Gender</th>
+
+                                            {% for program_course in program_assessment.get_courses %}
+                                                <th class="transform">{{program_course.course.code}}</th>
+                                            {% endfor %}
+                                            <th class="transform">Failed</th>
+                                            <th class="transform">SGPA</th>
+                                            <th class="transform">SCredits</th>
+                                            <th class="transform">CGPA </th>
+                                            <th class="transform">CCredits </th>
+                                            <th class="transform">Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for student_assessment in program_assessment.get_students %}
+                                        <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{student_assessment.enrollment.student.student_number}}</td>
+                                            <td>{{student_assessment.enrollment.student.first_name}}</td>
+                                            <td>{{student_assessment.enrollment.student.last_name}}</td> 
+                                            <td>{{student_assessment.enrollment.student.gender}}</td>
+                                            
+                                            {% for student_course in student_assessment.get_semester_courses %}
+                                                <td>{{student_course.letter_grade}}</td>
+                                            {% endfor %}
+
+                                            <td>{{student_assessment.total_failed_core_courses}}</td>
+                                            <td>{{student_assessment.result.semester_gpa}}</td>
+                                            <td>{{student_assessment.result.semester_credits}}</td>
+                                            <td>{{student_assessment.result.cumulative_gpa}}</td>
+                                            <td>{{student_assessment.result.cumulative_credits}}</td>
+                                            <td>{{student_assessment.result.decision}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    
+                    </div>
+                </section>
+        
+                <div class="page-break"></div>
+            
+                <section class="section">
+                    <p class="text-center text-uppercase  fw-bold  fs-4">
+                        MGD, PCO, RFC, FAW Summary for {{program_assessment.program}} - Semester {{program_assessment.semester}}
+                    </p>
+
+                    <div class="table-responsive ">      
+                                
+                        <table class="gradetable gradetable-bordered ">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Student No</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Sem GPA</th>
+                                    <th>Sem Credits</th>
+                                    <th>Cum GPA </th>
+                                    <th>Cum Credits </th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student_assessment in program_assessment.get_students %}
+                                    {% if not student_assessment.has_pap %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{student_assessment.enrollment.student.student_number}}</td>
+                                        <td>{{student_assessment.enrollment.student.first_name}}</td>
+                                        <td>{{student_assessment.enrollment.student.last_name}}</td> 
+                                        <td>{{student_assessment.result.semester_gpa}}</td>
+                                        <td>{{student_assessment.result.semester_credits}}</td>
+                                        <td>{{student_assessment.result.cumulative_gpa}}</td>
+                                        <td>{{student_assessment.result.cumulative_credits}}</td>
+                                        <td>{{student_assessment.result.decision}}</td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </section>
+
+                <br/>
+
+                <section class="section">
+                    <p class="text-center text-uppercase  fw-bold  fs-4">
+                        Course Summary for {{program_assessment.program}} - Semester {{program_assessment.semester}}
+                    </p>
+                    
+                    <div class="table-responsive ">      
+                                
+                        <table class="gradetable gradetable-bordered ">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#</th>
+                                    <th>Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Credits</th>
+                                    <th>Grade A</th>
+                                    <th>Grade B</th>
+                                    <th>Grade C </th>
+                                    <th>Grade D </th>
+                                    <th>Grade F</th>
+                                    <th>Fail</th>
+                                    <th>Pass</th>
+                                    <th>Total Students</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for course_summary in program_assessment.get_course_summary %}
+                                    
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{course_summary.course.code}}</td>
+                                        <td>{{course_summary.course.name}}</td>
+                                        <td>{{course_summary.course.credit_hours}}</td> 
+                                        <td>{{course_summary.grade_A}}</td>
+                                        <td>{{course_summary.grade_B}}</td>
+                                        <td>{{course_summary.grade_C}}</td>
+                                        <td>{{course_summary.grade_D}}</td>
+                                        <td>{{course_summary.grade_F}}</td>
+                                        <td>{{course_summary.fail_total}}</td>
+                                        <td>{{course_summary.pass_total}}</td>
+                                        <td>{{course_summary.total_students}}</td>
+                                    </tr>
+                                    
+                                {% endfor %}
+                                
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </section>
+
+                <br/>
+
+                <section class="section">
+                    <p class="text-center text-uppercase  fw-bold  fs-4">
+                        Performance Summary for {{program_assessment.program}} - Semester {{program_assessment.semester}}
+                    </p>
+
+                    <div class="table-responsive ">      
+                                
+                        <table class="gradetable gradetable-bordered ">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Performance</th>
+                                    <th>Male</th>
+                                    <th>Female</th>
+                                    <th>Total</th>
+                                    <th>Male (%)</th>
+                                    <th>Female (%) </th>
+                                    <th>Average (%) </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for performance_summary in program_assessment.get_performance_summary %}
+                                    <tr>
+                                        <td class="fw-bold ">{{performance_summary.description}}</td>
+                                        <td>{{performance_summary.male}}</td>
+                                        <td>{{performance_summary.female}}</td> 
+                                        <td>{{performance_summary.total}}</td>
+                                        <td>{{performance_summary.male_percent}}</td>
+                                        <td>{{performance_summary.female_percent}}</td>
+                                        <td>{{performance_summary.average}}</td>
+                                    </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td class="fw-bold ">Total Students</td>
+                                    <td>{{program_assessment.total_male}}</td>
+                                    <td>{{program_assessment.total_female}}</td>
+                                    <td>{{program_assessment.total_students}}</td>
+                                    <td>{{program_assessment.male_percent}}</td>
+                                    <td>{{program_assessment.female_percent}}</td>
+                                    <td>{{program_assessment.total_average}}</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+
+                    </div>
+                </section>
+
+                <div class="page-break"></div>
+            {% endfor %}
+        </div>
+
+    </body>
+</html>

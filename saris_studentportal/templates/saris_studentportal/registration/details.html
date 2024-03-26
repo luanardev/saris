@@ -1,0 +1,54 @@
+{% extends 'saris_studentportal/base.html' %}
+{% load i18n %}
+
+{% block content_title %} {% trans 'Registration' %} {% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'studentportal:home' %}">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item">{% trans 'Registration' %}</li>
+    </ol>
+{% endblock %}
+
+{% block content %} 
+<div class="container">
+    <section class="section">
+        <div class="card">
+            <div class="card-header">        
+                <h4>Registration Details</h4>    
+            </div>
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-borderless ">
+                            <tr>
+                                <th>Program of study<th>
+                                <td>{{registration.enrollment.program}}<td>
+                            </tr> 
+                            <tr>
+                                <th>Academic semester<th>
+                                <td>{{registration.academic_semester}}<td>
+                            </tr>
+                            <tr>
+                                <th>Semester of study<th>
+                                <td>Semester {{registration.semester}}<td>
+                            </tr> 
+                            <tr>
+                                <th>Registration type<th>
+                                <td>{{registration.type}}<td>
+                            </tr> 
+                            <tr>
+                                <th>Registration status<th>
+                                <td>{{registration.status|title}}<td>
+                            </tr> 
+                        </table>
+                    </div>
+                    
+                </div> 
+            </div>          
+        </div>
+        
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends 'saris_assessment/base.html' %}
+{% load django_bootstrap5 %}
+{% load render_table from django_tables2 %}
+{% load humanize %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-12 col-md-6 order-md-1 order-first">
+                <h3>Result Statement</h3>
+                <h4 class="text-muted">
+                    <i class="fa fa-id-card"></i> ({{enrollment.student.student_number}}) {{enrollment.student}}
+                </h4>
+                
+            </div>
+            <div class="col-12 col-md-6 order-md-2  order-last">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                   <a href="{% url 'assessment:results.process' enrollment.pk %}" class="btn btn-sm btn-primary">
+                        Process
+                    </a>
+        
+                    <a href="{% url 'assessment:results.download' enrollment.pk %}" class="btn btn-sm btn-primary" target="_blank">
+                        Download
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+        
+</div>
+
+<div class="page-content">
+    <section class="section">
+        {% for assessment in statement.get_assessments %}
+        <div class="card">
+            <div class="card-header"> 
+                <div class="card-title">
+                    
+                    <h4 class="text-muted">
+                        Semester {{assessment.semester}} - {{assessment.academic_semester}}   
+                    </h4>
+                   
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="row"> 
+                    <div class="col-lg-12">
+                        <div class="table-responsive">      
+                            <table class="table table-bordered">
+                                <thead class="bg-light-secondary">
+                                    <tr>
+                                        <th>Academic Semester</th>
+                                        <th>Study Semester</th>
+                                        <th>Semester GPA</th>
+                                        <th>Semester Credits</th>
+                                        <th>Cumulative GPA</th>
+                                        <th>Cumulative Credits</th>
+                                        <th>Academic Result</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{assessment.academic_semester}}</td>
+                                        <td>{{assessment.semester}}</td>
+                                        <td>{{assessment.result.semester_gpa}}</td>
+                                        <td>{{assessment.result.semester_credits}}</td>
+                                        <td>{{assessment.result.cumulative_gpa}}</td>
+                                        <td>{{assessment.result.cumulative_credits}}</td>
+                                        <td>{{assessment.result.description|title}}</td>
+                                        <td>
+                                            {% if assessment.result.pk %}
+                                            <a href="{% url 'assessment:results.publish' assessment.result.pk %}" class="btn btn-sm btn-outline-primary">Publish</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>Course Code</th>
+                                        <th>Course Name</th>
+                                        <th>Course Type</th>
+                                        <th>Course Attempt</th>
+                                        <th>Credit Hours</th>
+                                        <th>CAS Grade</th>
+                                        <th>EOS Grade</th>
+                                        <th>Final Grade</th>
+                                        <th>Grade Point</th>
+                                        <th>Letter Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for student_course in assessment.get_semester_courses %}
+                                    <tr class="text-center">    
+                                        <td>{{student_course.course.code}}</td>
+                                        <td>{{student_course.course.name}}</td>
+                                        <td>{{student_course.course_type}}</td>
+                                        <td>{{student_course.course_attempt}}</td>
+                                        <td>{{student_course.course.credit_hours}}</td>
+                                        <td>{{student_course.continous_grade}}</td>
+                                        <td>{{student_course.endsemester_grade}}</td>
+                                        <td>{{student_course.final_grade}}</td>
+                                        <td>{{student_course.grade_point}}</td>
+                                        <td>{{student_course.letter_grade}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>     
+                </div>
+            </div>          
+        </div>
+        {% endfor %} 
+    </section>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

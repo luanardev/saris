@@ -1,0 +1,238 @@
+{% load static %}
+{% load saris_tags user_tags %}
+{% load saris_institution_tags %}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Results Statement</title>
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+        <style>
+            body{
+                font-family: arial;
+                font-size:13px;
+                background-color: white;
+                color: black;
+            }
+
+            .page-break{
+                page-break-after: always;
+            }
+
+            .space{
+                margin-top:60px;
+            }
+
+            .table{
+                color:black;
+                width: 100%;
+            }
+
+            .info tr td{
+                padding-left:20px;
+                text-align:justify;
+            }
+
+            .signature{
+                width:160px;
+            }
+
+            @page{
+                font-size:13px;
+                @top-left{
+                    content: "{{statement.enrollment.student.student_number}}, {{statement.enrollment.student}}"
+                }
+            }
+         
+            @page{
+                font-size:13px;
+                @bottom-right{
+                    content: "Page " counter(page) "/" counter(pages);
+                }
+            }
+
+            @page{
+                font-size:13px;
+                @bottom-center{
+                    content: "{% now 'M d, Y' %}";
+                }
+            }
+
+            @page{
+                font-size:13px;
+                @bottom-left {
+                    content: "{{statement.enrollment.student.student_number}}, {{statement.enrollment.student}}";
+                }
+            }
+
+        </style>
+       
+    </head>
+
+    <body>
+        <div class="container-fluid">
+
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
+                        
+                        <div class="position-relative">
+                            <div class="position-absolute top-0 start-0">
+                                <img src="{% org_logo %}" alt="logo" style="width:90px;"/>
+                            </div>
+                            <div class="position-absolute top-0 end-0 ">
+                                <address style="font-size:12px; text-align: right;">
+                                    {% org_name %} <br/>
+                                    {% org_postal_address %} <br/>
+                                    {% org_city %}, {% org_country %} <br/>
+                                    Tel: {% org_telephone_one %}<br/>
+                                    Email: {% org_email_address %}
+                                </address>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </section>
+        
+            <section class="section" style="margin-top:140px;">
+                <div class="position-absolute start-50 translate-middle">
+                    <h2 class="text-uppercase" style="font-size:16px;">
+                        Results Statement
+                    </h2>
+                </div>
+            </section>
+
+            <section class="section" style="margin-top:200px;">
+                <table class="info table table-borderless ">
+                    <tr>
+                        <th>First Name:</th>
+                        <td>{{statement.enrollment.student.first_name}}</td>
+                        <th>Last Name:</th>
+                        <td>{{statement.enrollment.student.last_name}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Other Names:</th>
+                        <td>{{statement.enrollment.student.middle_name}}</td>
+                        <th>Student ID:</th>
+                        <td>{{statement.enrollment.student.student_number}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Date of Birth:</th>
+                        <td>{{statement.enrollment.student.date_of_birth}}</td>
+                        <th>Gender:</th>
+                        <td>{{statement.enrollment.student.gender}}</td>
+                    </tr> 
+
+                    <tr>
+                        <th>Programme:</th>
+                        <td>{{statement.enrollment.program}}</td>
+                        <th>Level:</th>
+                        <td>{{statement.enrollment.program.program_type|capitalize}}</td>
+                    </tr>    
+
+                    <tr>
+                        <th>Language of Instruction:</th>
+                        <td>English</td>
+                        <th>Study Mode:</th>
+                        <td>Full Time</td>
+                    </tr>
+                   
+                </table>
+            </section>  
+
+            <div class="page-break"></div>
+
+            {% for assessment in statement.get_assessments %}
+            <section class="section">
+                <div class="row"> 
+                    <div class="col-lg-12">
+                        
+                        <div class="table-responsive">      
+                            
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td colspan="8">
+                                            <h3 class="text-uppercase ">
+                                                Semester {{assessment.semester}} - {{assessment.academic_semester}}   
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Course Code</th>
+                                        <th>Course Name</th>
+                                        <th>Credit Hours</th>
+                                        <th>CAS Grade</th>
+                                        <th>EOS Grade</th>
+                                        <th>Final Grade</th>
+                                        <th>Grade Point</th>
+                                        <th>Letter Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for student_course in assessment.get_semester_courses %}
+                                    <tr class="text-center">    
+                                        <td>{{student_course.course.code}}</td>
+                                        <td>{{student_course.course.name}}</td>
+                                        <td>{{student_course.course.credit_hours}}</td>
+                                        <td>{{student_course.continous_grade}}</td>
+                                        <td>{{student_course.endsemester_grade}}</td>
+                                        <td>{{student_course.final_grade}}</td>
+                                        <td>{{student_course.grade_point}}</td>
+                                        <td>{{student_course.letter_grade}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+
+                            <p class="text-uppercase fs-3 ">
+                                Summary for Semester {{assessment.semester}}
+                            </p>
+
+                            <table class="table table-borderless ">
+                                <tr>
+                                    <th>Semester GPA:</th>
+                                    <td>{{assessment.result.semester_gpa}}</td>
+                                    <th>Semester Credits:</th>
+                                    <td>{{assessment.result.semester_credits}}</td>
+                                </tr>
+
+                                {% if not assessment.result.is_first_semester %}
+                                <tr>
+                                    <th>Cumulative GPA:</th>
+                                    <td>{{assessment.result.cumulative_gpa}}</td>
+                                    <th>Cumulative Credits:</th>
+                                    <td>{{assessment.result.cumulative_credits}}</td>
+                                </tr>
+                                {% endif %}
+                       
+                                <tr>
+                                    <th>Result Code:</th>
+                                    <td>{{assessment.result.decision}}</td>
+                                    <th>Result Description:</th>
+                                    <td>{{assessment.result.description|title}}</td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </div>
+                   
+                </div>
+            </section>
+            {% endfor %}
+
+            <div class="space"></div>
+
+            <p><img class="signature" src="{% signature statement.signatory %}" alt="{{ statement.signatory.signature }}" style="width:200px;"></p>
+            <p class="text-uppercase " style="font-size:14px;">{{statement.signatory}}</p>
+            <h6 class="text-uppercase">{{statement.signatory.group}}</h6> 
+        </div>
+
+    </body>
+</html>

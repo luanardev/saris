@@ -1,0 +1,86 @@
+{% extends 'saris_graduation/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3> Candidate Details</h3>
+                <h4 class="text-muted">
+                    <i class="fa fa-id-card"></i> ({{candidate.enrollment.student.student_number}}) {{candidate.enrollment.student}}
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-text">
+                            <a href="{% url 'graduation:candidate.browse' candidate.session.pk %}" class="btn btn-sm btn-light-primary">
+                                Browse
+                            </a>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>Student ID</th>
+                                <td>{{candidate.enrollment.student.student_number}}</td>
+                            </tr>
+                           
+                            <tr>
+                                <th>Student Name</th>
+                                <td>{{candidate.enrollment.student.title}} {{candidate.enrollment.student}}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{candidate.enrollment.student.gender}}</td>
+                            </tr>
+                            <tr>
+                                <th>Date of Birth</th>
+                                <td>{{candidate.enrollment.student.date_of_birth}}</td>
+                            </tr>
+                            <tr>
+                                <th>Marital Status</th>
+                                <td>{{candidate.enrollment.student.marital_status}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email Address</th>
+                                <td>{{candidate.enrollment.student.email_address}}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone Number</th>
+                                <td>{{candidate.enrollment.student.phone_number}}</td>
+                            </tr>
+                            <tr>
+                                <th>Faculty</th>
+                                <td>{{candidate.enrollment.program.department.faculty}}</td>
+                            </tr>
+                            <tr>
+                                <th>Campus</th>
+                                <td>{{candidate.enrollment.campus}}</td>
+                            </tr>
+                            <tr>
+                                <th>Award Name</th>
+                                <td>{{candidate.enrollment.award_name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Award Class</th>
+                                <td>{{candidate.enrollment.award_class}}</td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

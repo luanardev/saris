@@ -1,0 +1,20 @@
+{% extends 'saris_transfer/base.html' %}
+{% load saris_tags %}
+{% load django_bootstrap5 %}
+{% block content %} 
+    <form action="" method="post" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Confirmation</div>
+            </div>
+            <div class="card-body">
+                <p>Are you sure you want to cancel Transfer Request?</p>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-danger" >Confirm</button>
+                <a href="{% url 'transfer:request.details' object.pk %}" class="btn btn-light-secondary">Cancel</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

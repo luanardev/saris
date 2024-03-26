@@ -1,0 +1,84 @@
+{% extends "saris_headship/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %} 
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-first">
+                <h3>{{courseappeal.appeal_type|title}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-8">    
+                <div class="card">
+                    <div class="card-header bg-light-secondary">
+                        <h4>{{courseappeal.enrollment.student_number }} - {{courseappeal.enrollment.student}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-borderless ">
+                                <tr>
+                                    <th>Course Code<th>
+                                    <td>{{courseappeal.course.code}}<td>
+                                </tr>
+                                <tr>
+                                    <th>Course Name<th>
+                                    <td>{{courseappeal.course.name}}<td>
+                                </tr>
+                                <tr>
+                                    <th>Program<th>
+                                    <td>{{courseappeal.enrollment.program}}<td>
+                                </tr>
+                                <tr>
+                                    <th>Semester<th>
+                                    <td>{{courseappeal.semester}}<td>
+                                </tr>
+                            
+                                <tr>
+                                    <th>Old CAS Grade<th>
+                                    <td>{{courseappeal.old_continous_grade}}<td>
+                                </tr>
+                                <tr>
+                                    <th>Old EOS Grade<th>
+                                    <td>{{courseappeal.old_endsemester_grade}}<td>
+                                </tr>
+
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <form action="" method="post" class="form">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header bg-light-secondary">
+                            <div class="card-title">Enter Grades</div>
+                        </div>
+                        <div class="card-body ">
+                            <div class="col-lg-12">
+                                {% bootstrap_form form %}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            {% bootstrap_button button_type="submit" content="Submit" %}
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+
+

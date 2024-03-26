@@ -1,0 +1,8 @@
+{% load django_bootstrap5 %}
+{% if filter %}          
+    <form method="get">
+        {% bootstrap_form filter.form %}
+        {% bootstrap_button button_type="submit" content="Filter" %}
+        <a href="{% url view.reset_filter_url %}" class="btn btn-light-secondary">Clear</a>
+    </form>
+{% endif %}

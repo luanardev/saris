@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load active_link_tags %}
+
+{% block title %}Saris - Student Transfer{% endblock %}
+{% block app_title %}Student Tranfer{% endblock %}
+
+{% block sidebar %} 
+<ul class="menu">
+    <li class="sidebar-title">Menu</li>
+
+    <li class="sidebar-item">
+        <a href="{% url 'transfer:home' %}" class='sidebar-link'>
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'transfer:request.campus' %} ">
+        <a href="{% url 'transfer:request.campus' %}" class='sidebar-link'>
+            <i class="fa fa-building"></i>
+            <span>Change Campus</span>
+        </a>
+    </li>
+
+
+    <li class="sidebar-item {% active_link 'transfer:request.program' %} ">
+        <a href="{% url 'transfer:request.program' %}" class='sidebar-link'>
+            <i class="fa fa-book"></i>
+            <span>Change Program</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'transfer:request.browse' %} ">
+        <a href="{% url 'transfer:request.browse' %}" class='sidebar-link'>
+            <i class="fa fa-repeat"></i>
+            <span>Browse Transfers</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'transfer:approval.pending' %} ">
+        <a href="{% url 'transfer:approval.pending' %}" class='sidebar-link'>
+            <i class="fa fa-gavel"></i>
+            <span>Approve Transfer</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'transfer:approval.history' %} ">
+        <a href="{% url 'transfer:approval.history' %}" class='sidebar-link'>
+            <i class="fa fa-list"></i>
+            <span>Approval History</span>
+        </a>
+    </li>
+
+</ul>
+{% endblock %}

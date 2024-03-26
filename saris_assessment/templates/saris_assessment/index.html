@@ -1,0 +1,140 @@
+{% extends 'saris_assessment/base.html' %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Welcome, {{ user.first_name }}</h3>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <a href="{% url 'assessment:appeals' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-gavel"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Course Appeals</h5>
+                                    <p class="card-text">Browse course appeals</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'assessment:supplementary' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-gavel"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Supplementary</h5>
+                                    <p class="card-text">Browse students supplementary</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'assessment:results' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-file-clipboard"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Result Statement</h5>
+                                    <p class="card-text">Browse academic statement</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'assessment:transcript' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-file-pdf"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Academic Transcript</h5>
+                                    <p class="card-text">Get academic transcript</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'assessment:grades' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-gear"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Grades Manager</h5>
+                                    <p class="card-text">Process students grades</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'assessment:gradebook' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-book"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Grade Book</h5>
+                                    <p class="card-text">Process gradebook</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+        
+    </section>
+</div>
+
+{% endblock %}

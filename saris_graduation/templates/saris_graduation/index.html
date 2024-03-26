@@ -1,0 +1,103 @@
+{% extends 'saris_graduation/base.html' %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row mb-4">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Welcome, {{ user.first_name }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <section class="section">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            <div class="col">
+                <a href="{% url 'graduation:session.browse' %}" >
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold"> Session Manager</h5>
+                                    <p class="card-text">Manage graduation sessions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'graduation:candidate.process' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-cog"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Process Candidates</h5>
+                                    <p class="card-text">Create graduation candidates</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'graduation:candidate.session' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Graduation Candidates</h5>
+                                    <p class="card-text">Browse graduation candidates</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="{% url 'graduation:booklet.browse' %}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="fa fa-book"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-semibold">Graduation Booklet</h5>
+                                    <p class="card-text">Download graduation booklet</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+    </section>
+</div>
+
+{% endblock %}

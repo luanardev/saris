@@ -1,0 +1,91 @@
+{% extends 'saris_transfer/base.html' %}
+{% load django_bootstrap5 %}
+{% load saris_tags %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3> Transfer Approval</h3>
+                <h4 class="text-muted">
+                    <i class="fa fa-id-card"></i> ({{transfer.enrollment.student.student_number}}) {{transfer.enrollment.student}}
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+
+                    <div class="card-header ">
+                        <div class="card-title ">
+                            <h4>
+                                {{transfer.transfer_type|capitalize}} Transfer
+                            </h4>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                           
+                            <tr>
+                                <th>Request Summary<th>
+                                <td>{{transfer.request_summary}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Current Program<th>
+                                <td>{{transfer.enrollment.program}}<td>
+                            </tr>
+                            <tr>
+                                <th>Current Campus<th>
+                                <td>{{transfer.enrollment.campus}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Requested Program<th>
+                                <td>{{transfer.new_program}}<td>
+                            </tr>
+
+                            <tr>
+                                <th>Requested Campus<th>
+                                <td>{{transfer.new_campus}}<td>
+                            </tr>
+
+                         
+                            
+                        </table>
+                    </div>
+                    {% if transfer.is_pending %}
+                    <div class="card-footer">
+                        <form action="{% url 'transfer:approval.create'%}" method="post" class="form">
+                            {% csrf_token %}
+                            <input type="hidden" name="transfer" value="{{transfer.pk}}" />
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label class="form-label">Comment</label>
+                                    <textarea class="form-control" name="comment"></textarea>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-lg-12">
+                                    <button type="submit" name="approval" value="approved" class="btn btn-success" >Approve</button>
+                                    <button type="submit" name="approval" value="rejected" class="btn btn-danger" >Reject</button>
+                                </div>
+                            </div>
+                              
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

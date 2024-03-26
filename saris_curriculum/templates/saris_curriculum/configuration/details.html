@@ -1,0 +1,106 @@
+{% extends 'saris_curriculum/base.html' %}
+{% load django_bootstrap5 %}
+{% load render_table from django_tables2 %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3> Curriculum Configuration</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-inline-flex gap-2">   
+                            <a href="{% url 'curriculum:configuration.delete' curriculum.pk %}" class="btn btn-sm btn-danger">
+                                Delete
+                            </a>
+                            <a href="{% url 'curriculum:configuration.browse' %}" class="btn btn-sm btn-light-primary">
+                                Browse
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>Academic Semester<th>
+                                <td>{{curriculum.academic_semester}}<td>
+                            </tr>
+                            <tr>
+                                <th>Semester of Study<th>
+                                <td>Semester {{curriculum.semester}}<td>
+                            </tr>
+                            <tr>
+                                <th>Program Code<th>
+                                <td>{{curriculum.program.code}}<td>
+                            </tr>
+                            <tr>
+                                <th>Program Name<th>
+                                <td>{{curriculum.program.name}}<td>
+                            </tr>
+                            <tr>
+                                <th>Curriculum Version<th>
+                                <td>{{curriculum.version}}<td>
+                            </tr>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3> Program Courses</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                   <a href="{% url 'curriculum:configuration.addcourse' curriculum.pk %}" class="btn btn-sm btn-primary">Add Course</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        
+                        <button type="button" class="btn btn-sm btn-primary" data-bs-target="#filterModal" data-bs-toggle="modal" data-bs-backdrop="false">
+                            <i class="fa fa-filter"></i> Filter
+                        </button>
+                        
+                        <a href="{% url 'curriculum:configuration.details' curriculum.pk %}" class="btn btn-sm btn-light-primary">
+                            <i class="fa fa-refresh"></i> Reset
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <p class="font-bold">Total Records: {{ table.rows|length }}</p>
+                        <div class="table-responsive">
+                            {% render_table table %} 
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "filter_modal.html" %}
+
+{% endblock %}

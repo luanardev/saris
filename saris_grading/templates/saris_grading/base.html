@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load active_link_tags %}
+
+{% block title %}Saris - Grade Entry{% endblock %}
+{% block app_title %}Grade Entry{% endblock %}
+
+{% block sidebar %} 
+<ul class="menu">
+    <li class="sidebar-title">Menu</li>
+
+    <li class="sidebar-item {% active_link 'grading:courses' %}">
+        <a href="{% url 'grading:courses' %}" class='sidebar-link'>
+            <i class="fa fa-book"></i>
+            <span>My Courses </span>
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load active_link_tags %}
+
+{% block title %}Saris - Graduation{% endblock %}
+{% block app_title %}Graduation{% endblock %}
+
+{% block sidebar %} 
+<ul class="menu">
+    <li class="sidebar-title">Menu</li>
+
+    <li class="sidebar-item">
+        <a href="{% url 'graduation:home' %}" class='sidebar-link'>
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'graduation:session.browse' %} ">
+        <a href="{% url 'graduation:session.browse' %}" class='sidebar-link'>
+            <i class="fa fa-calendar"></i>
+            <span>Session Manager</span>
+        </a>
+    </li>
+
+
+    <li class="sidebar-item {% active_link 'graduation:candidate.process' %} ">
+        <a href="{% url 'graduation:candidate.process' %}" class='sidebar-link'>
+            <i class="fa fa-cog"></i>
+            <span>Process Candidates</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'graduation:candidate.session' %} ">
+        <a href="{% url 'graduation:candidate.session' %}" class='sidebar-link'>
+            <i class="fa fa-users"></i>
+            <span>Graduation Candidates</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'graduation:booklet.browse' %}  ">
+        <a href="{% url 'graduation:booklet.browse' %}" class='sidebar-link'>
+            <i class="fa fa-book"></i>
+            <span>Graduation Booklet</span>
+        </a>
+    </li>
+
+</ul>
+{% endblock %}

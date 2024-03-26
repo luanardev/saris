@@ -1,0 +1,32 @@
+{% extends 'saris_studentportal/base.html' %}
+{% load i18n %}
+
+{% block content_title %} {% trans 'Registration' %} {% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'studentportal:home' %}">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item">{% trans 'Registration' %}</li>
+    </ol>
+{% endblock %}
+
+
+{% block content %}
+<div class="container ">
+    <div id="error">
+        <div class="error-page">
+            <div class="col-md-8 col-12 offset-md-2">
+                <div class="text-center ">
+                    <h4 class="error-title text-danger">Oops, there's a problem</h4>
+                    <h5 class="text-gray-600">You have not registered in this semester.</h5>
+                    
+                    <a href="{% url 'studentportal:register' %}" class=" btn btn-success mt-3">
+                        <i class="fa fa-edit"></i>
+                        Register
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>   
+{% endblock %}

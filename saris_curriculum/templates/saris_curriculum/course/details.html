@@ -1,0 +1,66 @@
+{% extends 'saris_curriculum/base.html' %}
+{% load humanize %}
+{% load django_bootstrap5 %}
+
+{% block content %} 
+
+<div class="page-heading">
+    <div class="page-title ">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 order-last">
+                <h3> Course Details</h3>
+                <h4 class="text-muted"> 
+                    <i class="fa fa-book"></i> ({{course.code}}) {{course.name}}
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                           
+                        <div class="d-inline-flex gap-2">
+                            
+                            <a href="{% url 'curriculum:course.update' course.pk %}" class="btn btn-sm btn-primary">
+                                Update
+                            </a>
+                            <a href="{% url 'curriculum:course.browse' %}" class="btn btn-sm btn-light-primary">
+                                Browse
+                            </a>
+                        </div>
+                        
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>Course Code<th>
+                                <td>{{course.code}}<td>
+                            </tr>
+                            <tr>
+                                <th>Course Name<th>
+                                <td>{{course.name}}<td>
+                            </tr>
+                            <tr>
+                                <th>Course Version<th>
+                                <td>{{course.version}}<td>
+                            </tr>
+                            <tr>
+                                <th>Credit Hours<th>
+                                <td>{{course.credit_hours}}<td>
+                            </tr>
+                            <tr>
+                                <th>Department<th>
+                                <td>{{course.department}}<td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

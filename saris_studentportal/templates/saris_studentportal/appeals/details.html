@@ -1,0 +1,82 @@
+{% extends "saris_studentportal/base.html" %}
+{% load i18n %}
+
+{% block content_title %} {% trans 'Grade Appeal' %} {% endblock %}
+
+{% block breadcrumbs %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'studentportal:home' %}">{% trans 'Home' %}</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'studentportal:course_appeals' %}">{% trans 'Appeals' %}</a></li>
+        <li class="breadcrumb-item">{% trans 'Appeal Details' %}</li>
+    </ol>
+{% endblock %}
+
+
+{% block content %} 
+<div class="container">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">    
+                <div class="card">
+                    <div class="card-header bg-light-secondary">
+                        <h4>{{courseappeal.appeal_type|title }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-borderless ">
+                                <tr>
+                                    <th>Course code<th>
+                                    <td>{{courseappeal.course.code}}<td>
+                                </tr>
+                                <tr>
+                                    <th>Course name<th>
+                                    <td>{{courseappeal.course.name}}<td>
+                                </tr>
+                                <tr>
+                                    <th>Academic semester<th>
+                                    <td>{{courseappeal.academic_semester}}<td>
+                                </tr>
+                                <tr>
+                                    <th>Semester of study<th>
+                                    <td>{{courseappeal.semester}}<td>
+                                </tr>
+                                <tr>
+                                    <th>Appeal status<th>
+                                    <td>{{courseappeal.status|title}}<td>
+                                </tr>
+                                <tr>
+                                    <th>Old CAS grade<th>
+                                    <td>{{courseappeal.old_continous_grade}}<td>
+                                </tr>
+                                <tr>
+                                    <th>Old EOS grade<th>
+                                    <td>{{courseappeal.old_endsemester_grade}}<td>
+                                </tr>
+
+                                <tr>
+                                    <th>New CAS grade<th>
+                                    <td>
+                                        {% if courseappeal.is_resolved %}
+                                            {{courseappeal.continous_grade}}
+                                        {% endif %}
+                                    <td>
+                                </tr>
+                                <tr>
+                                    <th>New EOS grade<th>
+                                    <td>
+                                        {% if courseappeal.is_resolved %}
+                                            {{courseappeal.endsemester_grade}}
+                                        {% endif %}
+                                    <td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+

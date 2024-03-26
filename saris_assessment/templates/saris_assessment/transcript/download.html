@@ -1,0 +1,449 @@
+{% load static %}
+{% load saris_tags user_tags %}
+{% load saris_institution_tags %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Academic Transcript</title>
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+        <style>
+            body{
+                font-family: arial;
+                font-size:13px;
+                background-color: white;
+                color: black;
+            }
+            .page-break{
+                page-break-after: always;
+            }
+
+            .space{
+                margin-top:60px;
+            }
+
+            .table, .scheme {
+                color:black;
+                width: 100%;
+            }
+
+            .schema td, .schema th {
+                border: 1px solid #f0f0f0;
+                border-collapse: collapse;
+                border-spacing: 10px;  
+            }
+
+            .info tr td{
+                padding-left:20px;
+                text-align:justify;
+            }
+
+            .trascript tr td{
+                padding-left:20px;
+                text-align:justify;
+                text-transform: capitalize;
+            }
+
+            .signature{
+                width:160px;
+            }
+
+            @page{
+                font-size:13px;
+                @top-left{
+                    content: "{{transcript.enrollment.student.student_number}}, {{transcript.enrollment.student}}"
+                }
+            }
+
+            @page{
+                font-size:13px;
+                @top-right{
+                    content: "(Not Valid Without University Seal)"
+                }
+            }
+
+            @page{
+                font-size:13px;
+                @bottom-right{
+                    content: "Page " counter(page) "/" counter(pages);
+                }
+            }
+
+            @page{
+                font-size:13px;
+                @bottom-center{
+                    content: "{% now 'M d, Y' %}";
+                }
+            }
+
+            @page{
+                font-size:13px;
+                @bottom-left {
+                    content: "{{transcript.enrollment.student.student_number}}, {{transcript.enrollment.student}}";
+                }
+            }
+
+        </style>
+       
+    </head>
+
+    <body>
+        <div class="container-fluid">    
+            <section class="section">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="position-relative">
+                            <div class="position-absolute top-0 start-50 translate-middle-x ">
+                                <img src="{% org_logo %}" alt="logo" style="width:110px;"/>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" style="margin-top:160px;">
+                <h3 class="text-uppercase text-center" style="font-size:16px;">
+                    {% org_name %} <br/> ({% org_acronym %})
+                </h3>
+            </section>
+
+            <section class="section" style="margin-top:40px;">
+                <h2 class="text-uppercase text-center ">
+                    Academic Transcript
+                </h2>
+            </section>
+
+            <section class="section" style="margin-top:60px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="transcript table table-borderless ">
+                            <tr>
+                                <th>First Name:</th>
+                                <td>{{transcript.enrollment.student.first_name}}</td>
+                                <th>Last Name:</th>
+                                <td>{{transcript.enrollment.student.last_name}}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Other Names:</th>
+                                <td>{{transcript.enrollment.student.middle_name}}</td>
+                                <th>Student ID:</th>
+                                <td>{{transcript.enrollment.student.student_number}}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Date of Birth:</th>
+                                <td>{{transcript.enrollment.student.date_of_birth}}</td>
+                                <th>Gender:</th>
+                                <td>{{transcript.enrollment.student.gender}}</td>
+                            </tr> 
+
+                            <tr>
+                                <th>Programme Studied:</th>
+                                <td>{{transcript.enrollment.award_name}}</td>
+                                <th>Level:</th>
+                                <td>{{transcript.enrollment.program.program_type|capitalize}}</td>
+                            </tr>    
+
+                            <tr>
+                                <th>Language of Instruction:</th>
+                                <td>English</td>
+                                <th>Study Mode:</th>
+                                <td>Full Time</td>
+                            </tr>
+                            <tr>
+                                <th>Awarding Institution:</th>
+                                <td>{% org_name %}</td>
+                                <th>Award Class:</th>
+                                <td>{{transcript.enrollment.award_class|capitalize}}</td>
+                            </tr>
+                            <tr>
+                                <th>Programme Length:</th>
+                                <td>{{transcript.enrollment.program.semesters }} Semesters</td>
+                                <th>Completion Date:</th>
+                                <td>{{transcript.completion_date}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>  
+
+            <div class="page-break"></div>
+
+            {% for assessment in transcript.get_assessments %}
+            <section class="section">
+                <div class="row"> 
+                    <div class="col-lg-12">
+                        
+                        <div class="table-responsive">      
+                            
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td colspan="8">
+                                            <h3 class="text-uppercase ">
+                                                Semester {{assessment.semester}} - {{assessment.academic_semester}}   
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Course Code</th>
+                                        <th>Course Name</th>
+                                        <th>Credit Hours</th>
+                                        <th>CAS Grade</th>
+                                        <th>EOS Grade</th>
+                                        <th>Final Grade</th>
+                                        <th>Grade Point</th>
+                                        <th>Letter Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for student_course in assessment.get_semester_courses %}
+                                    <tr class="text-center">    
+                                        <td>{{student_course.course.code}}</td>
+                                        <td>{{student_course.course.name}}</td>
+                                        <td>{{student_course.course.credit_hours}}</td>
+                                        <td>{{student_course.continous_grade}}</td>
+                                        <td>{{student_course.endsemester_grade}}</td>
+                                        <td>{{student_course.final_grade}}</td>
+                                        <td>{{student_course.grade_point}}</td>
+                                        <td>{{student_course.letter_grade}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+
+                            <p class="text-uppercase fs-3 ">
+                                Summary for Semester {{assessment.semester}}
+                            </p>
+
+                            <table class="table table-borderless ">
+                                <tr>
+                                    <th>Semester GPA:</th>
+                                    <td>{{assessment.result.semester_gpa}}</td>
+                                    <th>Semester Credits:</th>
+                                    <td>{{assessment.result.semester_credits}}</td>
+                                </tr>
+
+                                {% if not assessment.result.is_first_semester %}
+                                <tr>
+                                    <th>Cumulative GPA:</th>
+                                    <td>{{assessment.result.cumulative_gpa}}</td>
+                                    <th>Cumulative Credits:</th>
+                                    <td>{{assessment.result.cumulative_credits}}</td>
+                                </tr>
+                                {% endif %}
+
+                                <tr>
+                                    <th>Result:</th>
+                                    <td>{{assessment.result.decision}}</td>
+                                    <th>Description:</th>
+                                    <td>{{assessment.result.description}}</td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </div>
+                   
+                </div>
+            </section>
+            <div class="page-break"></div>
+            {% endfor %} 
+
+            <section class="section">
+                <h2 class="text-center text-uppercase ">
+                    Performance and Certification
+                </h2>
+
+                <p class="fw-bold fs-4">
+                    The table below provides an overall student performance for all semesters:
+                </p>
+                
+                <table class="table table-borderless ">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Semester</th>
+                            <th>Semester Credits</th>
+                            <th>Semester GPA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for result in transcript.get_results%}
+                        <tr class="text-center">    
+                            <td>{{result.semester}}</td>
+                            <td>{{result.semester_credits}}</td>
+                            <td>{{result.semester_gpa}}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+                <br/>
+                <table class="table">
+                    <tr>
+                        <th>Cumulative GPA:</th>
+                        <td class="fs-4 ">{{transcript.cumulative_gpa}}</td>
+                        <th>Cumulative Credits:</th>
+                        <td class="fs-4">{{transcript.cumulative_credits}}</td>
+                    </tr>     
+                </table>
+
+            </section>
+
+            
+            <section class="section">
+                {% if transcript.enrollment.is_certified %}
+                <h6 class="text-center text-uppercase">Award Classification</h6>
+                <p class="text-center text-uppercase fw-bold " style="font-size:14px;">{{transcript.enrollment.award_class}}</p>
+
+
+                <p class="mt-4" style="font-size:14px; text-align:justify;">
+                    This transcript confirms that the student has studied the above courses and has been awarded <span class="text-uppercase ">{{transcript.enrollment.award_name}}</span>.
+                    This transcript is not a certificate or a substitute for a certificate issued by {% org_name %}.
+                </p>
+
+                <div class="space"></div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        
+                        <div class="position-relative">
+                            <div class="position-absolute top-0 start-0" >
+                                <p><img class="signature" src="{% signature transcript.signatory %}" alt="{{ transcript.signatory.signature }}" style="width:200px;"><p>
+                                <p class="fw-bold ">{{ transcript.signatory.group }}</p>        
+                            </div>
+
+                            <div class="position-absolute top-0 end-0 " style="padding-top:28px;">
+                                <p>{{transcript.completion_date}}</p>
+                                <p class="fw-bold">Date of Award</p>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+                
+                {% endif %}
+                
+                
+            </section>
+           
+
+            <div class="page-break"></div>
+
+            <section class="section">
+                <h2 class="text-center text-uppercase ">
+                    Transcript Information
+                </h2>
+                <p class="fw-bold fs-4">The following gives an explanation of the information contained in the transcript overleaf:</p>
+                <table class="info table">
+                    <tr>
+                        <th>Course<th>
+                        <td>
+                            Courses are the basic components of a programme. Each course has its own learning outcomes, continous assessments and end of semester exams. A course has an intended level of difficulty depending on the programme.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Credit<th>
+                        <td>
+                          Each course is defined in terms of Credits obtained by the student, who successfully achieves the learning outcomes through continous assessments and final exams.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Grades<th>
+                        <td>
+                          The final grade for each course is a sum of the Continous Assessment Grade (CAS GRADE) and End Semester Exam Grade (EOS GRADE). 
+                          Continous Assessment Grade is marked out of {{transcript.grade_bench_mark.continous_grade}}% while End Semester Exam Grade is marked out of {{transcript.grade_bench_mark.endsemester_grade}}%.
+                        </td>
+                    </tr>
+                </table>
+
+                <p class="fw-bold fs-4">The table below gives an explanation of the various codes the university uses to record student assessment outcomes :</p>
+
+                <table class="scheme">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Definition</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for code, definition in transcript.assessment_codes %}
+                        <tr>
+                            <td>{{code}}</td>
+                            <td>{{definition|title}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+
+            <div class="page-break"></div>
+        
+            <section class="section">
+                <h2 class="text-center text-uppercase ">
+                    Grade Scheme
+                </h2>
+
+                <table class="scheme">
+                    <thead>
+                        <tr>
+                            <th>Grade Range</th>
+                            <th>Letter Grade</th>
+                            <th>Grade Point</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for instance in transcript.grade_scheme%}
+                        <tr>
+                            <td>{{instance.min_grade}} - {{instance.max_grade}}</td>
+                            <td>{{instance.letter_grade}}</td>
+                            <td>{{instance.grade_point}}</td>
+                            <td>{{instance.decision|title}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </section>
+            <div class="space" ></div>
+            <section class="section">
+
+                <h2 class="text-center text-uppercase ">
+                    Award Scheme
+                </h2>
+
+                <table class="scheme">
+                    <thead>
+                        <tr>
+                            <th>Programme Level</th>
+                            <th>Cumulative GPA</th>
+                            <th>Repeated Semester </th>
+                            <th>Award Class</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for instance in transcript.award_scheme%}
+                        <tr>
+                            <td>{{instance.program_type|title}}</td>
+                            <td>{{instance.min_cgpa}} - {{instance.max_cgpa}}</td>
+                            <td>{{instance.repeated}}</td>
+                            <td>{{instance.award_class|title}}</td>
+                            <td>{{instance.description}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </section>
+
+        </div>
+
+    </body>
+</html>

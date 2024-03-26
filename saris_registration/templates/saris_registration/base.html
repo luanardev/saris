@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load active_link_tags %}
+
+{% block title %}Saris - Registration{% endblock %}
+{% block app_title %}Registration{% endblock %}
+
+{% block sidebar %} 
+<ul class="menu">
+    <li class="sidebar-title">Menu</li>
+
+    <li class="sidebar-item ">
+        <a href="{% url 'registration:home' %}" class='sidebar-link'>
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'registration:register' %}  ">
+        <a href="{% url 'registration:register' %}" class='sidebar-link'>
+            <i class="fa fa-user-plus"></i>
+            <span>Register Student</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'registration:browse' %}  ">
+        <a href="{% url 'registration:browse' %}" class='sidebar-link'>
+            <i class="fa fa-folder-open"></i>
+            <span>Browse Registration</span>
+        </a>
+    </li>
+
+</ul>
+{% endblock %}

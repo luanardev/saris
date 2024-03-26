@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load active_link_tags %}
+
+{% block title %}Saris - Curriculum{% endblock %}
+{% block app_title %}Curriculum{% endblock %}
+
+{% block sidebar %} 
+<ul class="menu">
+    <li class="sidebar-title">Menu</li>
+
+    <li class="sidebar-item ">
+        <a href="{% url 'curriculum:home' %}" class='sidebar-link'>
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'curriculum:program.index' %}  ">
+        <a href="{% url 'curriculum:program.index' %}" class='sidebar-link'>
+            <i class="fa fa-folder-open"></i>
+            <span>Manage Programs</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'curriculum:course.index' %}  ">
+        <a href="{% url 'curriculum:course.index' %}" class='sidebar-link'>
+            <i class="fa fa-book-open"></i>
+            <span>Manage Courses</span>
+        </a>
+    </li>
+
+    <li class="sidebar-item {% active_link 'curriculum:configuration.index' %}  ">
+        <a href="{% url 'curriculum:configuration.index' %}" class='sidebar-link'>
+            <i class="fa fa-book-atlas"></i>
+            <span>Manage Curriculum</span>
+        </a>
+    </li>
+
+
+</ul>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% load static %}
+{% load saris_calendar_tags %}
+{% load saris_tags user_tags %}
+
+<header>
+    <nav class="navbar navbar-expand navbar-light ">
+        <div class="container-fluid">
+            <a href="#" class="burger-btn d-block">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> 
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="d-inline  px-4 fs-6 ">
+                    <i class="fas fa-calendar-check"></i> {% academic_semester user.staff %}
+                </div>
+                <div class="d-inline px-4 fs-6 ">
+                    <i class="fas fa-building-user"></i> {{user.staff.campus}}
+                </div>
+
+                <ul class="navbar-nav ms-auto mb-2 me-3 mb-lg-0">
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class='bi bi-envelope bi-sub fs-4 text-gray-600'></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <h6 class="dropdown-header">Mail</h6>
+                            </li>
+                            <li><a class="dropdown-item" href="#">No new mail</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class='bi bi-bell bi-sub fs-4 text-gray-600'></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <h6 class="dropdown-header">Notifications</h6>
+                            </li>
+                            <li><a class="dropdown-item">No notification available</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+                <div class="dropdown">
+                    
+                    <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="d-flex mt-4">
+                            <div class="user-name text-end">
+                                <h6 class="mb-0 text-gray-600">{{ user.first_name }} {{ user.last_name }}</h6>
+                                <p class="mb-0 text-gray-600">{{user.groups.first}}</p>
+                            </div>
+                            <div class="user-img d-flex mx-2 ">
+                                <div class="avatar avatar-lg">
+                                    {% if user.profile_picture %}
+                                        <img src="{% profile_picture user %}" />
+                                    {% else %}
+                                        <img src="{% static 'assets/images/user.png' %}" />
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <h6 class="dropdown-header">Hello, {{ user.first_name }}!</h6>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i> My
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
+                                Settings
+                            </a>
+                        </li>
+        
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout
+                            </a>
+                            
+                            <form id="logout-form" action="{% url 'logout' %}" method="POST" class="d-none">
+                                {% csrf_token %}
+                            </form>
+                           
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
