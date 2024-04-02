@@ -250,6 +250,26 @@ class SemesterResult(SarisModel):
     def __str__(self) -> str:
         return self.decision
     
+    def set_withdrawal(self):
+        self.decision = ResultType.FAW
+        self.description = ResultDescription[self.decision]
+
+    def set_rfc(self):
+        self.decision = ResultType.RFC
+        self.description = ResultDescription[self.decision]
+
+    def set_pco(self):
+        self.decision = ResultType.PCO
+        self.description = ResultDescription[self.decision]
+
+    def set_pap(self):
+        self.decision = ResultType.PAP
+        self.description = ResultDescription[self.decision]
+
+    def set_sup(self):
+        self.decision = ResultType.SUP
+        self.description = ResultDescription[self.decision]
+    
     def is_first_semester(self) -> bool:
         return self.semester == 1
 
