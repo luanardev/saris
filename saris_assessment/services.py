@@ -794,10 +794,7 @@ class SemesterProgress(ResultProcessor):
         enrollment.save()
 
     def _repeat_failed_course(self):
-        decision = ResultType.RFC
-        description = ResultDescription[decision]
-        self.result.decision = decision
-        self.result.description = description
+        self.result.set_rfc()
         self.result.save()
 
     def _finish_studies(self):
@@ -825,7 +822,7 @@ class SemesterProgress(ResultProcessor):
            pass
 
     def _fail_and_withdrawal(self):
-        self.result.decision = ResultType.FAW
+        self.result.set_withdrawal()
         self.result.save()
 
     def _readmit_withdrawal(self):

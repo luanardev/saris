@@ -460,9 +460,6 @@ class RegistrationManager(BaseProcessor):
         else:
             return self._create_register(invoice_manager, StandardRegister)
    
-        register = self.get_register()
-        return register.process()
-
 
 class DeregistrationManager(BaseProcessor):
     
