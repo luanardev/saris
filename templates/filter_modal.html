@@ -1,29 +1,31 @@
 {% load django_bootstrap5 %}
 
-<div class="modal fade text-left" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModal" aria-hidden="true">
+<div class="modal fade" id="filterModal" role="dialog" >
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel1">Filter Records</h5>
+                <h5 class="modal-title" id="filterModalLabel">Filter Records</h5>
                 <button type="button" class="close rounded-pill"
                     data-bs-dismiss="modal" aria-label="Close">
                     <i data-feather="x"></i>
                 </button>
             </div>
             <div class="modal-body">
-                {% if filter.form %}          
-                    <form method="get">
-                        {% bootstrap_form filter.form %}
-                        {% bootstrap_button button_type="submit" content="Filter" %}
-                    </form>
+                {% if filter.form %} 
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form method="get" id="filterForm" class="form">
+                            {% bootstrap_form filter.form %}
+                        </form>
+                    </div>
+                </div>         
                 {% endif %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                    <i class="bx bx-x"></i>
-                    <span class="d-sm-block">Close</span>
-                </button>
+                <button type="submit" class="btn btn-primary" onclick="document.getElementById('filterForm').submit()">Filter</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
+           
         </div>
     </div>
 </div>

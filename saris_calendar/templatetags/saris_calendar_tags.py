@@ -8,7 +8,11 @@ register = template.Library()
 @register.simple_tag
 def academic_semester(user: User):
     try:
-        campus = user.campus
+        campus = None
+        if user.is_staff:
+            campus = user.staff.campus
+        elif user.is_student:
+            campus = user.student.campus
         academic_semester = AcademicSemester.get_active(campus)
         return academic_semester
     except:

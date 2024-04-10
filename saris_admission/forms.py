@@ -12,7 +12,9 @@ class StudentForm(forms.ModelForm):
             'user', 'student_number', 'saris_email', 'saris_username', 'saris_password', 'passcode', 
             'profile_picture', 'passport_photo', 'signature', 'qrcode_url'
         ]
-        widgets = {'date_of_birth': forms.DateInput(attrs={'type': 'date'})}
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'})
+        }
         
 
 class EnrollmentForm(forms.ModelForm):

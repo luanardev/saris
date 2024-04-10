@@ -1,61 +1,90 @@
-{% extends 'base.html' %}
-{% load active_link_tags %}
+{% extends 'jazzmin.html' %}
 
-{% block title %}Saris - Admission{% endblock %}
-{% block app_title %}Admission{% endblock %}
 
 {% block sidebar %} 
-<ul class="menu">
-    <li class="sidebar-title">Menu</li>
+<li class="nav-item">
+    <a href="{% url 'admission:home' %}" class='nav-link'>
+        <i class="nav-icon fa fa-home"></i>
+        <span>Home</span>
+    </a>
+</li>
 
-    <li class="sidebar-item">
-        <a href="{% url 'admission:home' %}" class='sidebar-link'>
-            <i class="fa fa-home"></i>
-            <span>Home</span>
-        </a>
-    </li>
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-user-graduate"></i>
+        <p>Enrollment <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        <li class="nav-item">
+            <a href="{% url 'admission:enrollment.create' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Create</span>
+            </a>
+        </li>
+        
+        <li class="nav-item  ">
+            <a href="{% url 'admission:enrollment.browse' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Browse</span>
+            </a>
+        </li> 
 
-    <li class="sidebar-item {% active_link 'admission:enrollment.create' %} ">
-        <a href="{% url 'admission:enrollment.create' %}" class='sidebar-link'>
-            <i class="fa fa-user-plus"></i>
-            <span>Enroll Student</span>
-        </a>
-    </li>
+        <li class="nav-item">
+            <a href="{% url 'admission:enrollment.search' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Search</span>
+            </a>
+        </li>
 
-    <li class="sidebar-item {% active_link 'admission:enrollment.browse' %} ">
-        <a href="{% url 'admission:enrollment.browse' %}" class='sidebar-link'>
-            <i class="fa fa-users"></i>
-            <span>Browse Enrollment</span>
-        </a>
-    </li>
+        <li class="nav-item  ">
+            <a href="{% url 'admission:enrollment.import' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Import</span>
+            </a>
+        </li> 
+        
+    </ul>
+</li>
 
-    <li class="sidebar-item {% active_link 'admission:withdrawal.create' %} ">
-        <a href="{% url 'admission:withdrawal.create' %}" class='sidebar-link'>
-            <i class="fa fa-user-slash"></i>
-            <span>Withdraw Student</span>
-        </a>
-    </li>
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-history"></i>
+        <p>Withdrawal <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        <li class="nav-item  ">
+            <a href="{% url 'admission:withdrawal.create' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Create</span>
+            </a>
+        </li>
+        
+        <li class="nav-item  ">
+            <a href="{% url 'admission:withdrawal.browse' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Browse</span>
+            </a>
+        </li>
 
-    <li class="sidebar-item {% active_link 'admission:withdrawal.browse' %} ">
-        <a href="{% url 'admission:withdrawal.browse' %}" class='sidebar-link'>
-            <i class="fa fa-users-slash"></i>
-            <span>Browse Withdrawals</span>
-        </a>
-    </li>
+    </ul>
+</li>
 
-    <li class="sidebar-item {% active_link 'admission:enrollment.letters' %}  ">
-        <a href="{% url 'admission:enrollment.letters' %}" class='sidebar-link'>
-            <i class="fa fa-file-word"></i>
-            <span>Admission Letters</span>
-        </a>
-    </li>
-    
-    <li class="sidebar-item {% active_link 'admission:enrollment.import' %} ">
-        <a href="{% url 'admission:enrollment.import' %}" class='sidebar-link'>
-            <i class="fa fa-file-import"></i>
-            <span>Import Admissions</span>
-        </a>
-    </li>
 
-</ul>
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fa fa-file-word"></i>
+        <p>Admission Letter <i class="fas fa-angle-left right"></i></p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+
+        <li class="nav-item  ">
+            <a href="{% url 'admission:enrollment.letters' %}" class='nav-link'>
+                <i class="far fa-circle nav-icon"></i>
+                <span>Download</span>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
 {% endblock %}

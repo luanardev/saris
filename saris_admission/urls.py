@@ -8,6 +8,7 @@ urlpatterns = [
     path('', DashboardView.as_view(), name='home'),
     path('enrollment/create', CreateEnrollmentView.as_view(), name='enrollment.create'),
     path('enrollment/browse', EnrollmentListView.as_view(), name='enrollment.browse'),
+    path('enrollment/search', SearchEnrollmentView.as_view(), name='enrollment.search'),
     path('enrollment/import', ImportEnrollmentView.as_view(), name='enrollment.import'),
     path('enrollment/<uuid:pk>', EnrollmentDetailsView.as_view(), name='enrollment.details'),
     path('enrollment/<uuid:pk>/update', UpdateEnrollmentView.as_view(), name='enrollment.update'),
